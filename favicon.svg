@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kuchisabishii">
-  <rect width="100" height="100" rx="0" fill="#F5F2EA"/>
-  <g transform="translate(50 50) scale(0.74) translate(-50 -50)">
-    <path d="M50 8 C 26 8, 8 27, 8 50 C 8 73, 27 92, 50 92 C 71 92, 90 75, 91 54"
-          fill="none" stroke="#223A5E" stroke-width="8" stroke-linecap="round"/>
+  <rect width="100" height="100" fill="#F5F2EA"/>
+  <g transform="matrix(0.04487 0.00000 0.00000 -0.04487 4.12305 81.60911)">
+    <path d="M1736 1440V-18H1572V125H473V-31H309V1440ZM473 1295V268H1572V1295Z" fill="#223A5E"/>
   </g>
 </svg>
