@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kuchisabishii — Japanese Inspired Dinner</title>
+<meta name="description" content="Kuchisabishii — ein japanisch inspiriertes Dinner in neun Gängen für zehn Personen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F2EA;      /* washi */
+    --paper-deep:#EDE9DD;
+    --ink:#232320;        /* sumi */
+    --indigo:#223A5E;     /* ai — signature */
+    --yuzu:#C2941F;       /* muted gold */
+    --shiso:#5E6B4A;      /* sparing green */
+    --line:#CDC7B7;       /* hairline */
+    --muted:#6E685B;      /* captions */
+    --serif:"Shippori Mincho",Georgia,"Times New Roman",serif;
+    --sans:"Zen Kaku Gothic New",-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:auto}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-weight:400;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* subtle washi grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a{color:inherit}
+  ::selection{background:var(--indigo);color:var(--paper)}
+
+  /* ---------- type ---------- */
+  .eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--muted);font-weight:500}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;margin:0}
+  .jp{font-family:var(--serif);font-weight:500;letter-spacing:.12em}
+
+  /* ---------- fixed chrome ---------- */
+  .progress-enso{
+    position:fixed;top:26px;right:28px;width:46px;height:46px;z-index:60;
+    cursor:pointer;
+  }
+  .progress-enso svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .progress-enso .track{stroke:var(--line);opacity:.6}
+  .progress-enso .fill{stroke:var(--indigo)}
+  .progress-enso .pct{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:11px;color:var(--indigo);letter-spacing:.02em;
+  }
+
+  nav.rail{
+    position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:60;
+    display:flex;flex-direction:column;gap:14px;
+  }
+  nav.rail a{
+    display:flex;align-items:center;gap:10px;text-decoration:none;
+    font-family:var(--serif);font-size:10.5px;color:var(--muted);
+    transition:color .35s;
+  }
+  nav.rail a .dot{
+    width:7px;height:7px;border:1px solid var(--muted);border-radius:50%;
+    transition:all .35s;flex:0 0 auto;
+  }
+  nav.rail a .lbl{
+    opacity:0;transform:translateX(-6px);transition:all .35s;
+    letter-spacing:.18em;text-transform:uppercase;font-family:var(--sans);
+    font-size:9px;white-space:nowrap;
+  }
+  nav.rail a:hover .lbl{opacity:1;transform:none}
+  nav.rail a.active{color:var(--indigo)}
+  nav.rail a.active .dot{background:var(--indigo);border-color:var(--indigo);transform:scale(1.35)}
+  nav.rail a.active .lbl{opacity:1;transform:none}
+  @media(max-width:900px){nav.rail{display:none}}
+
+  .side-kanji{
+    position:fixed;right:34px;top:50%;transform:translateY(-50%);z-index:5;
+    writing-mode:vertical-rl;font-family:var(--serif);font-size:13px;
+    letter-spacing:.55em;color:var(--muted);opacity:.55;pointer-events:none;
+  }
+  @media(max-width:900px){.side-kanji{display:none}}
+
+  /* ---------- layout ---------- */
+  section{position:relative;z-index:2}
+  .wrap{max-width:820px;margin:0 auto;padding:0 34px}
+  @media(min-width:641px){.wrap{padding:0 72px}}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;min-height:100svh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;position:relative;padding:60px 20px;
+  }
+  .hero .enso-wrap{position:relative;width:min(430px,78vw);aspect-ratio:1}
+  .hero .enso{position:absolute;inset:0;width:100%;height:100%}
+  .hero .enso path{fill:none;stroke:var(--indigo);stroke-width:2.6;stroke-linecap:round}
+  .hero .kanji{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:clamp(44px,10vw,72px);letter-spacing:.1em;
+    color:var(--ink);line-height:1;
+  }
+  .hero .kanji span{display:inline-block}
+  .hero .roman{font-family:var(--sans);font-size:14px;letter-spacing:.5em;
+    text-transform:uppercase;color:var(--indigo);margin-top:38px;font-weight:500;
+    padding-left:.5em}
+  .hero .sub{font-family:var(--serif);font-style:italic;font-size:19px;
+    color:var(--muted);margin-top:20px}
+  .hero .rule{width:54px;height:1px;background:var(--indigo);margin:28px auto;transform-origin:center}
+  .hero .serve{font-family:var(--sans);font-size:11px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--muted)}
+  .scroll-cue{
+    position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    font-family:var(--sans);font-size:9px;letter-spacing:.35em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .scroll-cue .stem{width:1px;height:44px;background:var(--muted);transform-origin:top}
+
+  /* ---------- menu index ---------- */
+  .menu-section{padding:16vh 0 14vh}
+  .section-head{display:flex;align-items:baseline;gap:18px;
+    border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:8px}
+  .section-head .num{font-family:var(--serif);font-size:15px;color:var(--yuzu);letter-spacing:.05em}
+  .section-head h2{font-size:clamp(24px,4vw,30px)}
+  .section-head .of{font-family:var(--sans);font-size:11px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--muted);margin-left:auto;align-self:center}
+  .head-rule{height:1px;background:var(--indigo);transform-origin:left;margin-top:-1px}
+
+  .menu-list{list-style:none;padding:0;margin:34px 0 0}
+  .menu-list li{border-bottom:1px solid var(--line)}
+  .menu-list li:last-child{border-bottom:none}
+  .menu-list a{
+    display:flex;align-items:baseline;gap:20px;padding:17px 6px;
+    text-decoration:none;position:relative;transition:padding .45s cubic-bezier(.22,1,.36,1);
+  }
+  .menu-list a::after{
+    content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;
+    background:var(--indigo);transform:scaleX(0);transform-origin:left;
+    transition:transform .55s cubic-bezier(.22,1,.36,1);
+  }
+  .menu-list a:hover{padding-left:16px}
+  .menu-list a:hover::after{transform:scaleX(1)}
+  .menu-list .mno{font-family:var(--serif);color:var(--indigo);font-size:16px;min-width:34px}
+  .menu-list .mname{font-family:var(--serif);font-size:clamp(16px,2.6vw,19px)}
+  .menu-list .mdesc{font-family:var(--sans);font-size:12.5px;color:var(--muted);
+    margin-left:auto;text-align:right;max-width:52%}
+  @media(max-width:560px){
+    .menu-list a{flex-wrap:wrap;gap:8px 14px}
+    .menu-list .mdesc{margin-left:48px;text-align:left;max-width:100%;flex-basis:100%}
+  }
+
+  /* ---------- course ---------- */
+  .course{padding:15vh 0 13vh;position:relative;overflow:clip}
+  .course:nth-of-type(even){background:var(--paper-deep)}
+  .watermark{
+    position:absolute;top:50%;font-family:var(--serif);
+    font-size:clamp(280px,44vw,560px);line-height:1;color:var(--indigo);
+    opacity:.045;pointer-events:none;user-select:none;z-index:0;
+    right:-6%;transform:translateY(-50%);
+  }
+  .course:nth-of-type(even) .watermark{right:auto;left:-6%}
+  .course .wrap{position:relative;z-index:2}
+
+  .course-head{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+  .course-head .mark{width:30px;height:30px;flex:0 0 30px}
+  .course-head .mark path{fill:none;stroke:var(--indigo);stroke-width:7;stroke-linecap:round}
+  .course-head .cno{font-family:var(--sans);font-size:12px;letter-spacing:.32em;
+    color:var(--yuzu);font-weight:600}
+  .course h2{font-size:clamp(26px,5vw,34px);margin:2px 0 4px;letter-spacing:.01em}
+  .course .csub{font-family:var(--serif);font-style:italic;color:var(--muted);
+    font-size:16px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:30px}
+
+  .component{margin:0 0 30px}
+  .component h3{font-family:var(--sans);font-weight:700;font-size:12.5px;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--indigo);margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+  @media(max-width:640px){.grid{grid-template-columns:1fr;gap:18px}}
+
+  .label{font-family:var(--sans);font-size:10px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:block}
+  .ing{list-style:none;padding:0;margin:0}
+  .ing li{display:flex;align-items:baseline;font-size:14px;padding:5px 0}
+  .ing .n{flex:0 0 auto;padding-right:6px}
+  .ing .d{flex:1 1 auto;border-bottom:1px dotted var(--line);transform:translateY(-4px);margin:0 4px}
+  .ing .q{flex:0 0 auto;font-family:var(--sans);color:var(--ink);
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  .steps{counter-reset:s;list-style:none;padding:0;margin:0}
+  .steps li{position:relative;padding:0 0 10px 30px;font-size:14px}
+  .steps li:before{counter-increment:s;content:counter(s);
+    position:absolute;left:0;top:0;font-family:var(--serif);color:var(--yuzu);
+    font-size:14px;width:20px}
+
+  .note{background:rgba(34,58,94,.05);border-left:2px solid var(--indigo);
+    padding:12px 16px;font-size:12.5px;color:var(--muted);margin-top:10px;
+    border-radius:0 3px 3px 0}
+  .finish{font-size:13px;color:var(--ink)}
+  .finish .label{margin-bottom:6px}
+  .finish span{color:var(--muted)}
+
+  /* ---------- footer ---------- */
+  footer{
+    padding:22vh 20px;text-align:center;position:relative;z-index:2;
+  }
+  footer .enso-small{width:120px;height:120px;margin:0 auto 26px}
+  footer .enso-small path{fill:none;stroke:var(--indigo);stroke-width:3.2;stroke-linecap:round}
+  footer .jp-big{font-family:var(--serif);font-size:clamp(22px,4.6vw,32px);letter-spacing:.2em}
+  footer .trans{font-family:var(--serif);font-style:italic;color:var(--muted);
+    font-size:15px;margin-top:16px}
+  footer .meta{font-family:var(--sans);font-size:10px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--muted);margin-top:44px}
+
+  @media(prefers-reduced-motion:reduce){
+    .menu-list a,.menu-list a::after{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- fixed chrome -->
+<div class="progress-enso" id="progressEnso" title="Nach oben">
+  <svg viewBox="0 0 46 46">
+    <circle class="track" cx="23" cy="23" r="19" fill="none" stroke-width="1.4"/>
+    <circle class="fill" id="progressCircle" cx="23" cy="23" r="19" fill="none" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+  <span class="pct" id="progressPct">0</span>
+</div>
+
+<nav class="rail" id="rail" aria-label="Menü-Navigation">
+  <a href="#hero"><span class="dot"></span><span class="lbl">Start</span></a>
+  <a href="#menu"><span class="dot"></span><span class="lbl">Menü</span></a>
+  <a href="#c1"><span class="dot"></span><span class="lbl">01 Amuse</span></a>
+  <a href="#c2"><span class="dot"></span><span class="lbl">02 Yakitori Chicken</span></a>
+  <a href="#c3"><span class="dot"></span><span class="lbl">03 Yakitori Beef</span></a>
+  <a href="#c4"><span class="dot"></span><span class="lbl">04 Nasu Dengaku</span></a>
+  <a href="#c5"><span class="dot"></span><span class="lbl">05 Grillgemüse</span></a>
+  <a href="#c6"><span class="dot"></span><span class="lbl">06 Aburi Nigiri</span></a>
+  <a href="#c7"><span class="dot"></span><span class="lbl">07 Mizuna Salat</span></a>
+  <a href="#c8"><span class="dot"></span><span class="lbl">08 Yuzu Ponzu</span></a>
+  <a href="#c9"><span class="dot"></span><span class="lbl">09 Dessert</span></a>
+</nav>
+
+<div class="side-kanji">口寂しい &mdash; いただきます</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="enso-wrap">
+    <svg class="enso" id="heroEnso" viewBox="0 0 100 100" aria-hidden="true">
+      <path id="heroEnsoPath" d="M50 8
+               C 26 8, 8 27, 8 50
+               C 8 73, 27 92, 50 92
+               C 71 92, 90 75, 91 54"/>
+    </svg>
+    <div class="kanji" id="heroKanji" aria-label="Kuchisabishii">
+      <span>口</span><span>寂</span><span>し</span><span>い</span>
+    </div>
+  </div>
+  <div class="roman" data-intro>Kuchisabishii</div>
+  <div class="sub" data-intro>Japanese Inspired Dinner</div>
+  <div class="rule" data-intro-rule></div>
+  <div class="serve" data-intro>Menü &middot; 10 Personen</div>
+  <div class="scroll-cue" id="scrollCue">
+    <span>Scroll</span>
+    <span class="stem"></span>
+  </div>
+</section>
+
+<!-- ============ MENU INDEX ============ -->
+<section class="menu-section" id="menu">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="num">献立</span>
+      <h2>Menü</h2>
+      <span class="of">Neun Gänge</span>
+    </div>
+    <div class="head-rule" data-rule></div>
+    <ol class="menu-list">
+      <li data-reveal><a href="#c1"><span class="mno">01</span><span class="mname">Amuse</span><span class="mdesc">Marinierte Nashi · Shiro Miso · Yuzu</span></a></li>
+      <li data-reveal><a href="#c2"><span class="mno">02</span><span class="mname">Yakitori — Chicken Style</span><span class="mdesc">Seitan · Citrus Tare</span></a></li>
+      <li data-reveal><a href="#c3"><span class="mno">03</span><span class="mname">Yakitori — Beef Style</span><span class="mdesc">Seitan · Caramel Tare · Sansho</span></a></li>
+      <li data-reveal><a href="#c4"><span class="mno">04</span><span class="mname">Nasu Dengaku</span><span class="mdesc">Aubergine · Doppel-Miso-Glasur</span></a></li>
+      <li data-reveal><a href="#c5"><span class="mno">05</span><span class="mname">Mariniertes Grillgemüse</span><span class="mdesc">Kräuterseitling · Paprika · Zucchini</span></a></li>
+      <li data-reveal><a href="#c6"><span class="mno">06</span><span class="mname">Aburi Tomato Nigiri</span><span class="mdesc">Dashi-Tomate · Yuzu-Nikiri</span></a></li>
+      <li data-reveal><a href="#c7"><span class="mno">07</span><span class="mname">Mizuna Salat</span><span class="mdesc">Nashi · Daikon · Miso-Dressing</span></a></li>
+      <li data-reveal><a href="#c8"><span class="mno">08</span><span class="mname">Yuzu Ponzu</span><span class="mdesc">Dip zu Yakitori &amp; Grillgemüse</span></a></li>
+      <li data-reveal><a href="#c9"><span class="mno">09</span><span class="mname">Dessert</span><span class="mdesc">Kokos-Yuzu-Eis · eingelegte Nashi · schwarzer Sesam</span></a></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 01 AMUSE ============ -->
+<section class="course" id="c1">
+  <div class="watermark" data-watermark>壱</div>
+  <div class="wrap">
+    <div class="course-head" data-reveal>
+      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+      <span class="cno">Gang 01</span>
+    </div>
+    <h2 data-reveal>Amuse</h2>
+    <div class="csub" data-reveal>Marinierte Nashi · Shiro Miso · Yuzu</div>
+
+    <div class="component" data-reveal>
+      <h3>Marinierte Nashi</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Nashi</span><span class="d"></span><span class="q">5 Stück</span></li>
+            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">150 ml</span></li>
+            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">100 ml</span></li>
+            <li><span class="n">Mirin</span><span class="d"></span><span class="q">80 ml</span></li>
+            <li><span class="n">Zucker</span><span class="d"></span><span class="q">20 g</span></li>
+            <li><span class="n">Salz</span><span class="d"></span><span class="q">5 g</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Marinade verrühren.</li>
+            <li>Nashi mit der Mandoline hauchdünn hobeln.</li>
+            <li>5–10 Minuten marinieren.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component" data-reveal>
+      <h3>Shiro-Miso-Creme</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Shiro Miso</span><span class="d"></span><span class="q">250 g</span></li>
+            <li><span class="n">Seidentofu</span><span class="d"></span><span class="q">200 g</span></li>
+            <li><span class="n">Tahini</span><span class="d"></span><span class="q">50 g</span></li>
+            <li><span class="n">Mirin</span><span class="d"></span><span class="q">30 ml</span></li>
+            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">20 ml</span></li>
+            <li><span class="n">Sesamöl</span><span class="d"></span><span class="q">10 ml</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Alles fein pürieren.</li>
+            <li>Mindestens 2 Stunden kalt stellen.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component finish" data-reveal>
+      <span class="label">Finish</span>
+      <span>Schwarzer Sesam · frische Yuzu-Zeste · optional Finger Lime oder marinierte Sago-Perlen</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 YAKITORI CHICKEN ============ -->
+<section class="course" id="c2">
+  <div class="watermark" data-watermark>弐</div>
+  <div class="wrap">
+    <div class="course-head" data-reveal>
+      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+      <span class="cno">Gang 02</span>
+    </div>
+    <h2 data-reveal>Yakitori — Chicken Style</h2>
+    <div class="csub" data-reveal>Seitan · Citrus Tare</div>
+
+    <div class="component" data-reveal>
+      <h3>Seitan</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Seitan</span><span class="d"></span><span class="q">ca. 2 kg</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>In gleichmäßige Würfel schneiden.</li>
+            <li>Auf Spieße stecken.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component" data-reveal>
+      <h3>Citrus Tare</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">300 ml</span></li>
+            <li><span class="n">Mirin</span><span class="d"></span><span class="q">300 ml</span></li>
+            <li><span class="n">Sake</span><span class="d"></span><span class="q">200 ml</span></li>
+            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">120 ml</span></li>
+            <li><span class="n">Limettensaft</span><span class="d"></span><span class="q">50 ml</span></li>
+            <li><span class="n">Zucker</span><span class="d"></span><span class="q">60 g</span></li>
+            <li><span class="n">Ingwer, gerieben</span><span class="d"></span><span class="q">50 g</span></li>
+            <li><span class="n">Frühlingszwiebeln</span><span class="d"></span><span class="q">4 Stück</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Alles 15–20 Minuten einkochen.</li>
+            <li>Abkühlen lassen.</li>
+            <li>Spieße mehrfach glasieren.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component finish" data-reveal>
+      <span class="label">Finish</span>
+      <span>Weißer Sesam · Yuzu-Zeste · Frühlingszwiebeln</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 YAKITORI BEEF ============ -->
+<section class="course" id="c3">
+  <div class="watermark" data-watermark>参</div>
+  <div class="wrap">
+    <div class="course-head" data-reveal>
+      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+      <span class="cno">Gang 03</span>
+    </div>
+    <h2 data-reveal>Yakitori — Beef Style</h2>
+    <div class="csub" data-reveal>Seitan · Caramel Tare · Sansho</div>
+
+    <div class="component" data-reveal>
+      <h3>Seitan</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Seitan</span><span class="d"></span><span class="q">ca. 2 kg</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps"><li>Auf Spieße stecken.</li></ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component" data-reveal>
+      <h3>Caramel Tare</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Dunkle Sojasauce</span><span class="d"></span><span class="q">300 ml</span></li>
+            <li><span class="n">Mirin</span><span class="d"></span><span class="q">300 ml</span></li>
+            <li><span class="n">Sake</span><span class="d"></span><span class="q">200 ml</span></li>
+            <li><span class="n">Brauner Zucker</span><span class="d"></span><span class="q">120 g</span></li>
+            <li><span class="n">Aka Miso</span><span class="d"></span><span class="q">40 g</span></li>
+            <li><span class="n">Knoblauchzehen</span><span class="d"></span><span class="q">4 Stück</span></li>
+            <li><span class="n">Schalotten</span><span class="d"></span><span class="q">2 Stück</span></li>
+            <li><span class="n">Sansho</span><span class="d"></span><span class="q">2 TL</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Alles langsam sirupartig einkochen.</li>
+            <li>Beim Grillen mehrmals glasieren.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component finish" data-reveal>
+      <span class="label">Finish</span>
+      <span>Schwarzer Sesam · Sansho</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 NASU DENGAKU ============ -->
+<section class="course" id="c4">
+  <div class="watermark" data-watermark>四</div>
+  <div class="wrap">
+    <div class="course-head" data-reveal>
+      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+      <span class="cno">Gang 04</span>
+    </div>
+    <h2 data-reveal>Nasu Dengaku</h2>
+    <div class="csub" data-reveal>Aubergine · Doppel-Miso-Glasur</div>
+
+    <div class="component" data-reveal>
+      <h3>Aubergine &amp; Glasur</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Kleine Auberginen</span><span class="d"></span><span class="q">10 Stück</span></li>
+            <li><span class="n">Shiro Miso</span><span class="d"></span><span class="q">200 g</span></li>
+            <li><span class="n">Aka Miso</span><span class="d"></span><span class="q">100 g</span></li>
+            <li><span class="n">Mirin</span><span class="d"></span><span class="q">120 ml</span></li>
+            <li><span class="n">Sake</span><span class="d"></span><span class="q">60 ml</span></li>
+            <li><span class="n">Zucker</span><span class="d"></span><span class="q">50 g</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Auberginen halbieren, Rauten einschneiden.</li>
+            <li>Vorgaren.</li>
+            <li>Glasur-Zutaten verrühren, aufstreichen.</li>
+            <li>Über Binchotan oder unter dem Grill karamellisieren.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component finish" data-reveal>
+      <span class="label">Finish</span>
+      <span>Weißer Sesam · Shiso oder Frühlingszwiebel</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 GRILLGEMÜSE ============ -->
+<section class="course" id="c5">
+  <div class="watermark" data-watermark>五</div>
+  <div class="wrap">
+    <div class="course-head" data-reveal>
+      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+      <span class="cno">Gang 05</span>
+    </div>
+    <h2 data-reveal>Mariniertes Grillgemüse</h2>
+    <div class="csub" data-reveal>Kräuterseitling · Spitzpaprika · Zucchini</div>
+
+    <div class="component" data-reveal>
+      <h3>Gemüse &amp; Marinade</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Kräuterseitlinge</span><span class="d"></span><span class="q">800 g</span></li>
+            <li><span class="n">Spitzpaprika</span><span class="d"></span><span class="q">6 Stück</span></li>
+            <li><span class="n">Zucchini</span><span class="d"></span><span class="q">4 Stück</span></li>
+            <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">150 ml</span></li>
+            <li><span class="n">Mirin</span><span class="d"></span><span class="q">100 ml</span></li>
+            <li><span class="n">Sesamöl</span><span class="d"></span><span class="q">60 ml</span></li>
+            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">50 ml</span></li>
+            <li><span class="n">Knoblauchzehen</span><span class="d"></span><span class="q">3 Stück</span></li>
+            <li><span class="n">Ingwer, gerieben</span><span class="d"></span><span class="q">30 g</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Gemüse in grillfähige Stücke schneiden, Kräuterseitlinge längs halbieren und kreuzweise einschneiden.</li>
+            <li>Marinade verrühren, Gemüse mindestens 30 Minuten marinieren.</li>
+            <li>Heiß grillen, bis Röstaromen entstehen; mit restlicher Marinade nachpinseln.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component finish" data-reveal>
+      <span class="label">Finish</span>
+      <span>Gerösteter Sesam · Yuzu Ponzu zum Dippen (Gang 08)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 ABURI TOMATO NIGIRI ============ -->
+<section class="course" id="c6">
+  <div class="watermark" data-watermark>六</div>
+  <div class="wrap">
+    <div class="course-head" data-reveal>
+      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+      <span class="cno">Gang 06</span>
+    </div>
+    <h2 data-reveal>Aburi Tomato Nigiri</h2>
+    <div class="csub" data-reveal>Dashi-Tomate · Yuzu-Nikiri</div>
+
+    <div class="component" data-reveal>
+      <h3>Sushi-Reis</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Sushi-Reis</span><span class="d"></span><span class="q">1 kg</span></li>
+            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">150 ml</span></li>
+            <li><span class="n">Zucker</span><span class="d"></span><span class="q">40 g</span></li>
+            <li><span class="n">Salz</span><span class="d"></span><span class="q">15 g</span></li>
+            <li><span class="n">Kombu</span><span class="d"></span><span class="q">1 Blatt</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Reis waschen, mit Kombu kochen.</li>
+            <li>Sushi-Essig unterheben, auf Körpertemperatur abkühlen lassen.</li>
+            <li>Zu kleinen Nigiri formen.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component" data-reveal>
+      <h3>Dashi-Tomate &amp; Yuzu-Nikiri</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Feste Tomaten</span><span class="d"></span><span class="q">10 Stück</span></li>
+            <li><span class="n">Shiitake-Kombu-Dashi</span><span class="d"></span><span class="q">500 ml</span></li>
+            <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">100 ml</span></li>
+            <li><span class="n">Mirin</span><span class="d"></span><span class="q">80 ml</span></li>
+            <li><span class="n">Sake</span><span class="d"></span><span class="q">40 ml</span></li>
+            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">30 ml</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Tomaten blanchieren, häuten, vierteln und entkernen.</li>
+            <li>Über Nacht im Dashi marinieren.</li>
+            <li>Sojasauce, Mirin, Sake und Yuzu kurz einkochen (Nikiri).</li>
+            <li>Tomate auf Reis setzen, abflämmen, mit Nikiri lackieren.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component finish" data-reveal>
+      <span class="label">Finish</span>
+      <span>Yuzu-Zeste · Shiso fein geschnitten · Flockensalz</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 MIZUNA SALAT ============ -->
+<section class="course" id="c7">
+  <div class="watermark" data-watermark>七</div>
+  <div class="wrap">
+    <div class="course-head" data-reveal>
+      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+      <span class="cno">Gang 07</span>
+    </div>
+    <h2 data-reveal>Mizuna Salat</h2>
+    <div class="csub" data-reveal>Nashi · Daikon · Miso-Dressing</div>
+
+    <div class="component" data-reveal>
+      <h3>Salat &amp; Dressing</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Mizuna</span><span class="d"></span><span class="q">400 g</span></li>
+            <li><span class="n">Nashi</span><span class="d"></span><span class="q">2 Stück</span></li>
+            <li><span class="n">Daikon</span><span class="d"></span><span class="q">300 g</span></li>
+            <li><span class="n">Shiro Miso</span><span class="d"></span><span class="q">60 g</span></li>
+            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">60 ml</span></li>
+            <li><span class="n">Mirin</span><span class="d"></span><span class="q">40 ml</span></li>
+            <li><span class="n">Sesamöl</span><span class="d"></span><span class="q">30 ml</span></li>
+            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">20 ml</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Nashi und Daikon in feine Julienne schneiden.</li>
+            <li>Dressing glatt rühren.</li>
+            <li>Mizuna erst kurz vor dem Servieren anmachen.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component finish" data-reveal>
+      <span class="label">Finish</span>
+      <span>Gerösteter weißer Sesam · hauchdünner Daikon als Textur</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 YUZU PONZU ============ -->
+<section class="course" id="c8">
+  <div class="watermark" data-watermark>八</div>
+  <div class="wrap">
+    <div class="course-head" data-reveal>
+      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+      <span class="cno">Gang 08</span>
+    </div>
+    <h2 data-reveal>Yuzu Ponzu</h2>
+    <div class="csub" data-reveal>Dip zu Yakitori &amp; Grillgemüse</div>
+
+    <div class="component" data-reveal>
+      <h3>Ponzu</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">250 ml</span></li>
+            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">120 ml</span></li>
+            <li><span class="n">Limettensaft</span><span class="d"></span><span class="q">40 ml</span></li>
+            <li><span class="n">Mirin</span><span class="d"></span><span class="q">60 ml</span></li>
+            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">60 ml</span></li>
+            <li><span class="n">Kombu</span><span class="d"></span><span class="q">1 Blatt</span></li>
+            <li><span class="n">Getrocknete Shiitake</span><span class="d"></span><span class="q">2 Stück</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Alle Zutaten kalt ansetzen.</li>
+            <li>Über Nacht ziehen lassen.</li>
+            <li>Abseihen und kalt servieren.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" data-reveal>Hält sich gekühlt mehrere Wochen — am besten 2–3 Tage vor dem Dinner ansetzen.</div>
+  </div>
+</section>
+
+<!-- ============ 09 DESSERT ============ -->
+<section class="course" id="c9">
+  <div class="watermark" data-watermark>九</div>
+  <div class="wrap">
+    <div class="course-head" data-reveal>
+      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+      <span class="cno">Gang 09</span>
+    </div>
+    <h2 data-reveal>Dessert</h2>
+    <div class="csub" data-reveal>Kokos-Yuzu-Eis · eingelegte Nashi · schwarzer Sesam</div>
+
+    <div class="component" data-reveal>
+      <h3>Kokos-Yuzu-Eis</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Kokosmilch</span><span class="d"></span><span class="q">800 ml</span></li>
+            <li><span class="n">Zucker</span><span class="d"></span><span class="q">160 g</span></li>
+            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">100 ml</span></li>
+            <li><span class="n">Glukosesirup</span><span class="d"></span><span class="q">60 g</span></li>
+            <li><span class="n">Salz</span><span class="d"></span><span class="q">2 g</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Kokosmilch, Zucker, Glukose und Salz erwärmen, bis alles gelöst ist.</li>
+            <li>Abkühlen, Yuzu-Saft einrühren.</li>
+            <li>In der Eismaschine frieren.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component" data-reveal>
+      <h3>Eingelegte Nashi &amp; Sesam</h3>
+      <div class="grid">
+        <div>
+          <span class="label">Zutaten</span>
+          <ul class="ing">
+            <li><span class="n">Nashi</span><span class="d"></span><span class="q">3 Stück</span></li>
+            <li><span class="n">Marinade von Gang 01</span><span class="d"></span><span class="q">Rest</span></li>
+            <li><span class="n">Schwarzer Sesam, gemörsert</span><span class="d"></span><span class="q">40 g</span></li>
+            <li><span class="n">Zucker</span><span class="d"></span><span class="q">20 g</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Zubereitung</span>
+          <ol class="steps">
+            <li>Nashi in feine Würfel schneiden, in der Marinade einlegen.</li>
+            <li>Sesam mit Zucker mörsern.</li>
+            <li>Eis mit Nashi und Sesam anrichten.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="component finish" data-reveal>
+      <span class="label">Finish</span>
+      <span>Yuzu-Zeste · optional gepuffter Reis für Crunch</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="end">
+  <svg class="enso-small" id="footEnso" viewBox="0 0 100 100" aria-hidden="true">
+    <path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/>
+  </svg>
+  <div class="jp-big" data-reveal>ごちそうさまでした</div>
+  <div class="trans" data-reveal>Danke für dieses Mahl.</div>
+  <div class="meta" data-reveal>Kuchisabishii &middot; Neun Gänge &middot; 10 Personen</div>
+</footer>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/js/ScrollToPlugin.min.js"></script>
+<script>
+(function(){
+  if(!window.gsap){return} // ohne GSAP bleibt die Seite voll lesbar
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- progress ensō ---------- */
+  var circle = document.getElementById("progressCircle");
+  var pct = document.getElementById("progressPct");
+  var C = 2 * Math.PI * 19;
+  circle.style.strokeDasharray = C;
+  circle.style.strokeDashoffset = C;
+  ScrollTrigger.create({
+    start: 0, end: "max",
+    onUpdate: function(self){
+      circle.style.strokeDashoffset = C * (1 - self.progress);
+      pct.textContent = Math.round(self.progress * 100);
+    }
+  });
+  document.getElementById("progressEnso").addEventListener("click", function(){
+    gsap.to(window, {duration: reduced ? 0 : 1.2, scrollTo: 0, ease: "power3.inOut"});
+  });
+
+  /* ---------- rail: smooth scroll + active state ---------- */
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll('nav.rail a, .menu-list a[href^="#"]'));
+  railLinks.forEach(function(a){
+    a.addEventListener("click", function(e){
+      var target = document.querySelector(a.getAttribute("href"));
+      if(!target) return;
+      e.preventDefault();
+      gsap.to(window, {duration: reduced ? 0 : 1.1, scrollTo: {y: target, offsetY: 0}, ease: "power3.inOut"});
+    });
+  });
+  document.querySelectorAll("nav.rail a").forEach(function(a){
+    var target = document.querySelector(a.getAttribute("href"));
+    if(!target) return;
+    ScrollTrigger.create({
+      trigger: target, start: "top center", end: "bottom center",
+      onToggle: function(self){ if(self.isActive){
+        document.querySelectorAll("nav.rail a").forEach(function(x){x.classList.remove("active")});
+        a.classList.add("active");
+      }}
+    });
+  });
+
+  if(reduced){ return; } // Inhalte bleiben statisch sichtbar
+
+  /* ---------- helper: ensō draw ---------- */
+  function prepDraw(path){
+    var len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+    return len;
+  }
+
+  /* ---------- intro ---------- */
+  var heroPath = document.getElementById("heroEnsoPath");
+  prepDraw(heroPath);
+  var kanjiSpans = document.querySelectorAll("#heroKanji span");
+  var intro = gsap.timeline({defaults:{ease:"power3.out"}});
+  intro
+    .to(heroPath, {strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut"}, .2)
+    .from(kanjiSpans, {opacity: 0, y: 26, filter: "blur(6px)", stagger: .14, duration: 1}, "-=1.1")
+    .from("[data-intro]", {opacity: 0, y: 18, stagger: .12, duration: .9}, "-=.5")
+    .from("[data-intro-rule]", {scaleX: 0, duration: .8, ease: "power2.inOut"}, "-=.8")
+    .from("#scrollCue", {opacity: 0, duration: .8}, "-=.3");
+  gsap.to("#scrollCue .stem", {scaleY: .35, transformOrigin: "top", repeat: -1, yoyo: true, duration: 1.1, ease: "sine.inOut"});
+
+  /* hero fades slightly as you leave */
+  gsap.to(".hero .enso-wrap", {
+    yPercent: -14, opacity: .35, ease: "none",
+    scrollTrigger: {trigger: ".hero", start: "top top", end: "bottom top", scrub: true}
+  });
+
+  /* ---------- generic reveals ---------- */
+  gsap.utils.toArray("[data-reveal]").forEach(function(el){
+    gsap.from(el, {
+      opacity: 0, y: 30, duration: 1, ease: "power3.out",
+      scrollTrigger: {trigger: el, start: "top 88%"}
+    });
+  });
+  gsap.utils.toArray("[data-rule]").forEach(function(el){
+    gsap.from(el, {
+      scaleX: 0, duration: 1.1, ease: "power2.inOut",
+      scrollTrigger: {trigger: el, start: "top 90%"}
+    });
+  });
+
+  /* ingredient rows cascade with their dotted leaders */
+  gsap.utils.toArray(".ing").forEach(function(list){
+    gsap.from(list.querySelectorAll("li"), {
+      opacity: 0, x: -14, stagger: .06, duration: .6, ease: "power2.out",
+      scrollTrigger: {trigger: list, start: "top 88%"}
+    });
+  });
+  gsap.utils.toArray(".steps").forEach(function(list){
+    gsap.from(list.querySelectorAll("li"), {
+      opacity: 0, x: 14, stagger: .09, duration: .6, ease: "power2.out",
+      scrollTrigger: {trigger: list, start: "top 88%"}
+    });
+  });
+
+  /* small ensō marks draw themselves in */
+  gsap.utils.toArray(".course-head .mark path").forEach(function(p){
+    prepDraw(p);
+    gsap.to(p, {
+      strokeDashoffset: 0, duration: 1.3, ease: "power2.inOut",
+      scrollTrigger: {trigger: p, start: "top 88%"}
+    });
+  });
+
+  /* watermark kanji parallax */
+  gsap.utils.toArray(".watermark").forEach(function(el){
+    gsap.fromTo(el, {yPercent: -62}, {
+      yPercent: -38, ease: "none",
+      scrollTrigger: {trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: true}
+    });
+  });
+
+  /* footer ensō */
+  var footPath = document.querySelector("#footEnso path");
+  prepDraw(footPath);
+  gsap.to(footPath, {
+    strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut",
+    scrollTrigger: {trigger: "#end", start: "top 75%"}
+  });
+})();
+</script>
+</body>
+</html>
