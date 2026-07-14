@@ -183,14 +183,27 @@
     color:var(--ink);line-height:1;
   }
   .hero .kanji span{display:inline-block}
-  .hero .roman{font-family:var(--sans);font-size:12px;letter-spacing:.42em;
-    text-transform:uppercase;color:var(--indigo);margin-top:30px;font-weight:500;
-    padding-left:.42em}
+  .hero .morph{
+    display:grid;justify-items:center;align-items:center;
+    margin-top:30px;width:100%;max-width:440px;
+  }
+  .hero .morph > *{grid-area:1/1}
+  .hero .morph .word{
+    font-family:var(--sans);font-size:12px;letter-spacing:.42em;
+    text-transform:uppercase;color:var(--indigo);font-weight:500;padding-left:.42em;
+    will-change:opacity,filter;
+  }
+  .hero .morph .def{
+    font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.55;
+    color:var(--muted);opacity:0;padding:0 4px;will-change:opacity,filter;
+  }
   .hero .sub{font-family:var(--serif);font-style:italic;font-size:17px;
-    color:var(--muted);margin-top:18px}
+    color:var(--muted);margin-top:16px}
   @media(min-width:641px){
-    .hero .roman{font-size:14px;letter-spacing:.5em;padding-left:.5em;margin-top:38px}
-    .hero .sub{font-size:19px;margin-top:20px}
+    .hero .morph{margin-top:38px;max-width:520px}
+    .hero .morph .word{font-size:14px;letter-spacing:.5em;padding-left:.5em}
+    .hero .morph .def{font-size:17px}
+    .hero .sub{font-size:19px;margin-top:18px}
   }
   .hero .rule{width:54px;height:1px;background:var(--indigo);margin:28px auto;transform-origin:center}
   .hero .serve{font-family:var(--sans);font-size:11px;letter-spacing:.3em;
@@ -379,7 +392,10 @@
       <span>口</span><span>寂</span><span>し</span><span>い</span>
     </div>
   </div>
-  <div class="roman" data-intro>Kuchisabishii</div>
+  <div class="morph" data-intro>
+    <span class="word" id="morphWord">Kuchisabishii</span>
+    <span class="def" id="morphDef">„Wenn der Mund sich einsam fühlt — die leise Lust zu essen, ganz ohne Hunger.“</span>
+  </div>
   <div class="sub" data-intro>Japanese Inspired Dinner</div>
   <div class="rule" data-intro-rule></div>
   <div class="serve" data-intro>Menü &middot; 10 Personen</div>
@@ -1051,6 +1067,23 @@
     .from("[data-intro-rule]", {scaleX: 0, duration: .8, ease: "power2.inOut"}, "-=.8")
     .from("#scrollCue", {opacity: 0, duration: .8, clearProps: "opacity"}, "-=.3");
   gsap.to("#scrollCue .stem", {scaleY: .35, transformOrigin: "top", repeat: -1, yoyo: true, duration: 1.1, ease: "sine.inOut"});
+
+  /* ---------- looping blur morph: word <-> German definition ---------- */
+  var mWord = document.getElementById("morphWord");
+  var mDef = document.getElementById("morphDef");
+  if(mWord && mDef){
+    gsap.set(mWord, {opacity: 1, filter: "blur(0px)"});
+    gsap.set(mDef, {opacity: 0, filter: "blur(10px)"});
+    var morph = gsap.timeline({repeat: -1, paused: true});
+    morph
+      .to({}, {duration: 2.6})                                                  /* Wort halten */
+      .to(mWord, {opacity: 0, filter: "blur(10px)", duration: .9, ease: "power2.in"})
+      .to(mDef,  {opacity: 1, filter: "blur(0px)",  duration: 1.1, ease: "power2.out"}, "-=.55")
+      .to({}, {duration: 3.6})                                                  /* Definition halten */
+      .to(mDef,  {opacity: 0, filter: "blur(10px)", duration: .9, ease: "power2.in"})
+      .to(mWord, {opacity: 1, filter: "blur(0px)",  duration: 1.1, ease: "power2.out"}, "-=.55");
+    intro.eventCallback("onComplete", function(){ morph.play(); });
+  }
 
   /* hero fades slightly as you leave */
   gsap.to(".hero .enso-wrap", {
