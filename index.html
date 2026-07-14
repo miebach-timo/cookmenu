@@ -3,7 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F5F2EA">
+<meta name="theme-color" content="#F5F2EA" id="themeColorMeta">
+<script>
+/* set theme before first paint to avoid a flash */
+(function(){
+  try{
+    var stored = localStorage.getItem("theme");
+    var t = stored || (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", t);
+  }catch(e){ document.documentElement.setAttribute("data-theme","light"); }
+})();
+</script>
 <title>Kuchisabishii — Japanese Inspired Dinner</title>
 <meta name="description" content="Kuchisabishii — ein japanisch inspiriertes Dinner in neun Gängen für zehn Personen.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -27,8 +37,31 @@
     --shiso:#5E6B4A;      /* sparing green */
     --line:#CDC7B7;       /* hairline */
     --muted:#6E685B;      /* captions */
+    --note-bg:rgba(34,58,94,.05);
+    --bar-bg:rgba(245,242,234,.94);
+    --grain:.5;
     --serif:"Shippori Mincho",Georgia,"Times New Roman",serif;
     --sans:"Zen Kaku Gothic New",-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  :root[data-theme="dark"]{
+    --paper:#1B1A16;      /* sumi ground */
+    --paper-deep:#211F1A;
+    --ink:#ECE7DA;        /* washi text */
+    --indigo:#9DB6D6;     /* ai, lifted for dark */
+    --yuzu:#D9AE3E;       /* gold, brighter */
+    --shiso:#93A277;
+    --line:#39362E;       /* hairline */
+    --muted:#A69E8D;      /* captions */
+    --note-bg:rgba(157,182,214,.08);
+    --bar-bg:rgba(27,26,22,.92);
+    --grain:.22;
+  }
+  html{background:var(--paper)}
+  body,
+  .mobile-bar,.mobile-menu,.progress-enso .fill,.progress-enso .track,
+  nav.rail a,nav.rail a .dot,.menu-list a::after,.head-rule,
+  .theme-toggle,.theme-toggle svg{
+    transition:background-color .5s ease,color .5s ease,border-color .5s ease,stroke .5s ease,fill .5s ease;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:auto}
@@ -42,7 +75,7 @@
   /* subtle washi grain */
   body::before{
     content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
-    opacity:.5;mix-blend-mode:multiply;
+    opacity:var(--grain);mix-blend-mode:multiply;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   a{color:inherit}
@@ -70,6 +103,23 @@
     font-family:var(--serif);font-size:10px;color:var(--indigo);letter-spacing:.02em;
   }
   @media(min-width:641px){.progress-enso .pct{font-size:11px}}
+
+  /* ---------- theme toggle ---------- */
+  .theme-toggle{
+    position:fixed;top:14px;right:60px;width:38px;height:38px;z-index:61;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);border-radius:50%;
+    background:var(--bar-bg);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    color:var(--indigo);cursor:pointer;padding:0;
+  }
+  .theme-toggle svg{width:17px;height:17px;display:block}
+  .theme-toggle .i-sun{display:none}
+  :root[data-theme="dark"] .theme-toggle .i-sun{display:block}
+  :root[data-theme="dark"] .theme-toggle .i-moon{display:none}
+  @media(min-width:641px){
+    .theme-toggle{top:26px;right:86px;width:46px;height:46px}
+    .theme-toggle svg{width:20px;height:20px}
+  }
 
   nav.rail{
     display:none;
@@ -111,7 +161,7 @@
     position:fixed;left:0;right:0;bottom:0;z-index:70;
     display:flex;align-items:center;justify-content:space-between;gap:12px;
     padding:10px 18px calc(10px + env(safe-area-inset-bottom));
-    background:rgba(245,242,234,.94);backdrop-filter:blur(8px);
+    background:var(--bar-bg);backdrop-filter:blur(8px);
     -webkit-backdrop-filter:blur(8px);
     border-top:1px solid var(--line);
     transform:translateY(102%);transition:transform .5s cubic-bezier(.22,1,.36,1);
@@ -303,7 +353,7 @@
     position:absolute;left:0;top:0;font-family:var(--serif);color:var(--yuzu);
     font-size:14px;width:20px}
 
-  .note{background:rgba(34,58,94,.05);border-left:2px solid var(--indigo);
+  .note{background:var(--note-bg);border-left:2px solid var(--indigo);
     padding:12px 16px;font-size:12.5px;color:var(--muted);margin-top:10px;
     border-radius:0 3px 3px 0}
   .finish{font-size:13px;color:var(--ink)}
@@ -331,6 +381,16 @@
 <body>
 
 <!-- fixed chrome -->
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Farbschema wechseln">
+  <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z"/>
+  </svg>
+  <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="4.2"/>
+    <path d="M12 2.6v2.2M12 19.2v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.6 12h2.2M19.2 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>
+  </svg>
+</button>
+
 <div class="progress-enso" id="progressEnso" title="Nach oben">
   <svg viewBox="0 0 46 46">
     <circle class="track" cx="23" cy="23" r="19" fill="none" stroke-width="1.4"/>
@@ -937,6 +997,39 @@
   <div class="trans" data-reveal>Danke für dieses Mahl.</div>
   <div class="meta" data-reveal>Kuchisabishii &middot; Neun Gänge &middot; 10 Personen</div>
 </footer>
+
+<script>
+/* dark-mode toggle — läuft unabhängig von GSAP */
+(function(){
+  var root = document.documentElement;
+  var toggle = document.getElementById("themeToggle");
+  var meta = document.getElementById("themeColorMeta");
+  var colors = { light: "#F5F2EA", dark: "#1B1A16" };
+  function apply(theme){
+    root.setAttribute("data-theme", theme);
+    if(meta){ meta.setAttribute("content", colors[theme] || colors.light); }
+    if(toggle){ toggle.setAttribute("aria-label", theme === "dark" ? "Zum hellen Schema wechseln" : "Zum dunklen Schema wechseln"); }
+  }
+  apply(root.getAttribute("data-theme") || "light");
+  if(toggle){
+    toggle.addEventListener("click", function(){
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      apply(next);
+      try{ localStorage.setItem("theme", next); }catch(e){}
+    });
+  }
+  /* folgt dem System, solange der Nutzer nichts manuell gewählt hat */
+  if(window.matchMedia){
+    var mq = matchMedia("(prefers-color-scheme: dark)");
+    var onChange = function(e){
+      var stored; try{ stored = localStorage.getItem("theme"); }catch(_){}
+      if(!stored){ apply(e.matches ? "dark" : "light"); }
+    };
+    if(mq.addEventListener){ mq.addEventListener("change", onChange); }
+    else if(mq.addListener){ mq.addListener(onChange); }
+  }
+})();
+</script>
 
 <script>
 /* mobile bar + overlay — läuft unabhängig von GSAP */
