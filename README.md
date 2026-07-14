@@ -11,6 +11,7 @@ Ein japanisch inspiriertes Dinner in neun Gängen für zehn Personen — als ani
 - **Mobile First**: Basis-Layout für kleine Screens, Desktop-Erweiterungen per `min-width`-Queries
 - **Mobile Navigation**: Bottom-Bar mit aktuellem Gang und Vollbild-Sprungmenü (献立); auf Desktop stattdessen seitliche Punkte-Rail mit aktiven Zuständen und Smooth Scroll
 - **Barrierefrei**: Respektiert `prefers-reduced-motion`; ohne JavaScript bleibt die Seite vollständig lesbar
+- **Icons**: Ensō-Favicon (SVG + PNG-Fallbacks), Apple-Touch-Icon und `site.webmanifest` für „Zum Home-Bildschirm" auf iOS/Android
 - **Selbstständig**: GSAP liegt lokal unter `assets/js/` — keine externen Script-CDNs nötig
 
 ## Über GitHub Pages hosten

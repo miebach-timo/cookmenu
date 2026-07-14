@@ -6,6 +6,14 @@
 <meta name="theme-color" content="#F5F2EA">
 <title>Kuchisabishii — Japanese Inspired Dinner</title>
 <meta name="description" content="Kuchisabishii — ein japanisch inspiriertes Dinner in neun Gängen für zehn Personen.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icons/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Kuchisabishii">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -188,12 +196,18 @@
   .hero .serve{font-family:var(--sans);font-size:11px;letter-spacing:.3em;
     text-transform:uppercase;color:var(--muted)}
   .scroll-cue{
-    position:absolute;bottom:calc(30px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
-    display:flex;flex-direction:column;align-items:center;gap:10px;
+    position:absolute;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
     font-family:var(--sans);font-size:9px;letter-spacing:.35em;
     text-transform:uppercase;color:var(--muted);
+    pointer-events:none;transition:opacity .4s ease;
   }
-  .scroll-cue .stem{width:1px;height:44px;background:var(--muted);transform-origin:top}
+  .scroll-cue.hide{opacity:0}
+  .scroll-cue .stem{width:1px;height:30px;background:var(--muted);transform-origin:top}
+  @media(min-width:641px){
+    .scroll-cue{bottom:calc(30px + env(safe-area-inset-bottom));gap:10px}
+    .scroll-cue .stem{height:44px}
+  }
 
   /* ---------- menu index ---------- */
   .menu-section{padding:12vh 0 10vh}
@@ -916,6 +930,7 @@
   var menu = document.getElementById("mobileMenu");
   var closeBtn = document.getElementById("mmClose");
   var label = document.getElementById("mbLabel");
+  var cue = document.getElementById("scrollCue");
   if(!bar || !btn || !menu) return;
 
   var sections = [
@@ -937,6 +952,7 @@
   function onScroll(){
     var y = window.scrollY || document.documentElement.scrollTop;
     bar.classList.toggle("show", y > window.innerHeight * .6);
+    if(cue){ cue.classList.toggle("hide", y > 40); }
     var mid = y + window.innerHeight * .5;
     var current = sections[0][1];
     for(var i = 0; i < sections.length; i++){
@@ -1033,7 +1049,7 @@
     .from(kanjiSpans, {opacity: 0, y: 26, filter: "blur(6px)", stagger: .14, duration: 1}, "-=1.1")
     .from("[data-intro]", {opacity: 0, y: 18, stagger: .12, duration: .9}, "-=.5")
     .from("[data-intro-rule]", {scaleX: 0, duration: .8, ease: "power2.inOut"}, "-=.8")
-    .from("#scrollCue", {opacity: 0, duration: .8}, "-=.3");
+    .from("#scrollCue", {opacity: 0, duration: .8, clearProps: "opacity"}, "-=.3");
   gsap.to("#scrollCue .stem", {scaleY: .35, transformOrigin: "top", repeat: -1, yoyo: true, duration: 1.1, ease: "sine.inOut"});
 
   /* hero fades slightly as you leave */
