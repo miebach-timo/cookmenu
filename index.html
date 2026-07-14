@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F5F2EA">
 <title>Kuchisabishii — Japanese Inspired Dinner</title>
 <meta name="description" content="Kuchisabishii — ein japanisch inspiriertes Dinner in neun Gängen für zehn Personen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,20 +48,25 @@
 
   /* ---------- fixed chrome ---------- */
   .progress-enso{
-    position:fixed;top:26px;right:28px;width:46px;height:46px;z-index:60;
+    position:fixed;top:14px;right:14px;width:38px;height:38px;z-index:60;
     cursor:pointer;
+  }
+  @media(min-width:641px){
+    .progress-enso{top:26px;right:28px;width:46px;height:46px}
   }
   .progress-enso svg{width:100%;height:100%;transform:rotate(-90deg)}
   .progress-enso .track{stroke:var(--line);opacity:.6}
   .progress-enso .fill{stroke:var(--indigo)}
   .progress-enso .pct{
     position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    font-family:var(--serif);font-size:11px;color:var(--indigo);letter-spacing:.02em;
+    font-family:var(--serif);font-size:10px;color:var(--indigo);letter-spacing:.02em;
   }
+  @media(min-width:641px){.progress-enso .pct{font-size:11px}}
 
   nav.rail{
+    display:none;
     position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:60;
-    display:flex;flex-direction:column;gap:14px;
+    flex-direction:column;gap:14px;
   }
   nav.rail a{
     display:flex;align-items:center;gap:10px;text-decoration:none;
@@ -80,27 +86,87 @@
   nav.rail a.active{color:var(--indigo)}
   nav.rail a.active .dot{background:var(--indigo);border-color:var(--indigo);transform:scale(1.35)}
   nav.rail a.active .lbl{opacity:1;transform:none}
-  @media(max-width:900px){nav.rail{display:none}}
 
   .side-kanji{
+    display:none;
     position:fixed;right:34px;top:50%;transform:translateY(-50%);z-index:5;
     writing-mode:vertical-rl;font-family:var(--serif);font-size:13px;
     letter-spacing:.55em;color:var(--muted);opacity:.55;pointer-events:none;
   }
-  @media(max-width:900px){.side-kanji{display:none}}
+  @media(min-width:901px){
+    nav.rail{display:flex}
+    .side-kanji{display:block}
+  }
+
+  /* ---------- mobile bar + overlay menu ---------- */
+  .mobile-bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:70;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:10px 18px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(245,242,234,.94);backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-top:1px solid var(--line);
+    transform:translateY(102%);transition:transform .5s cubic-bezier(.22,1,.36,1);
+  }
+  .mobile-bar.show{transform:none}
+  .mobile-bar .mb-label{
+    font-family:var(--serif);font-size:13px;color:var(--ink);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
+  }
+  .mobile-bar .mb-btn{
+    flex:0 0 auto;appearance:none;border:1px solid var(--indigo);
+    background:transparent;color:var(--indigo);cursor:pointer;
+    font-family:var(--sans);font-size:10px;letter-spacing:.26em;
+    text-transform:uppercase;padding:9px 16px 9px 18px;border-radius:999px;
+  }
+  .mobile-menu{
+    position:fixed;inset:0;z-index:80;background:var(--paper);
+    display:flex;flex-direction:column;
+    padding:26px 26px calc(26px + env(safe-area-inset-bottom));
+    opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;
+    overflow-y:auto;
+  }
+  .mobile-menu.open{opacity:1;visibility:visible}
+  .mobile-menu .mm-head{
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px;
+  }
+  .mobile-menu .mm-title{font-family:var(--serif);font-size:18px;letter-spacing:.12em}
+  .mobile-menu .mm-close{
+    appearance:none;border:none;background:none;cursor:pointer;
+    font-family:var(--serif);font-size:26px;line-height:1;color:var(--ink);
+    padding:6px 8px;margin:-6px -8px 0 0;
+  }
+  .mobile-menu ol{list-style:none;margin:0;padding:0}
+  .mobile-menu li{border-bottom:1px solid var(--line)}
+  .mobile-menu li:last-child{border-bottom:none}
+  .mobile-menu a{
+    display:flex;align-items:baseline;gap:16px;text-decoration:none;
+    padding:15px 2px;font-family:var(--serif);font-size:17px;
+  }
+  .mobile-menu a .no{color:var(--indigo);font-size:13px;min-width:26px}
+  .mobile-menu a .sub{
+    margin-left:auto;font-family:var(--sans);font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    text-align:right;
+  }
+  @media(min-width:901px){.mobile-bar,.mobile-menu{display:none}}
 
   /* ---------- layout ---------- */
   section{position:relative;z-index:2}
-  .wrap{max-width:820px;margin:0 auto;padding:0 34px}
-  @media(min-width:641px){.wrap{padding:0 72px}}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+  @media(min-width:641px){.wrap{padding:0 48px}}
+  @media(min-width:901px){.wrap{padding:0 72px}}
 
   /* ---------- hero ---------- */
   .hero{
     min-height:100vh;min-height:100svh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;position:relative;padding:60px 20px;
+    text-align:center;position:relative;padding:48px 18px 90px;
   }
-  .hero .enso-wrap{position:relative;width:min(430px,78vw);aspect-ratio:1}
+  @media(min-width:641px){.hero{padding:60px 20px}}
+  .hero .enso-wrap{position:relative;width:min(300px,82vw);aspect-ratio:1}
+  @media(min-width:641px){.hero .enso-wrap{width:min(430px,78vw)}}
   .hero .enso{position:absolute;inset:0;width:100%;height:100%}
   .hero .enso path{fill:none;stroke:var(--indigo);stroke-width:2.6;stroke-linecap:round}
   .hero .kanji{
@@ -109,16 +175,20 @@
     color:var(--ink);line-height:1;
   }
   .hero .kanji span{display:inline-block}
-  .hero .roman{font-family:var(--sans);font-size:14px;letter-spacing:.5em;
-    text-transform:uppercase;color:var(--indigo);margin-top:38px;font-weight:500;
-    padding-left:.5em}
-  .hero .sub{font-family:var(--serif);font-style:italic;font-size:19px;
-    color:var(--muted);margin-top:20px}
+  .hero .roman{font-family:var(--sans);font-size:12px;letter-spacing:.42em;
+    text-transform:uppercase;color:var(--indigo);margin-top:30px;font-weight:500;
+    padding-left:.42em}
+  .hero .sub{font-family:var(--serif);font-style:italic;font-size:17px;
+    color:var(--muted);margin-top:18px}
+  @media(min-width:641px){
+    .hero .roman{font-size:14px;letter-spacing:.5em;padding-left:.5em;margin-top:38px}
+    .hero .sub{font-size:19px;margin-top:20px}
+  }
   .hero .rule{width:54px;height:1px;background:var(--indigo);margin:28px auto;transform-origin:center}
   .hero .serve{font-family:var(--sans);font-size:11px;letter-spacing:.3em;
     text-transform:uppercase;color:var(--muted)}
   .scroll-cue{
-    position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+    position:absolute;bottom:calc(30px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
     display:flex;flex-direction:column;align-items:center;gap:10px;
     font-family:var(--sans);font-size:9px;letter-spacing:.35em;
     text-transform:uppercase;color:var(--muted);
@@ -126,7 +196,8 @@
   .scroll-cue .stem{width:1px;height:44px;background:var(--muted);transform-origin:top}
 
   /* ---------- menu index ---------- */
-  .menu-section{padding:16vh 0 14vh}
+  .menu-section{padding:12vh 0 10vh}
+  @media(min-width:641px){.menu-section{padding:16vh 0 14vh}}
   .section-head{display:flex;align-items:baseline;gap:18px;
     border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:8px}
   .section-head .num{font-family:var(--serif);font-size:15px;color:var(--yuzu);letter-spacing:.05em}
@@ -139,8 +210,12 @@
   .menu-list li{border-bottom:1px solid var(--line)}
   .menu-list li:last-child{border-bottom:none}
   .menu-list a{
-    display:flex;align-items:baseline;gap:20px;padding:17px 6px;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;
+    padding:16px 2px;min-height:44px;
     text-decoration:none;position:relative;transition:padding .45s cubic-bezier(.22,1,.36,1);
+  }
+  @media(min-width:561px){
+    .menu-list a{flex-wrap:nowrap;gap:20px;padding:17px 6px}
   }
   .menu-list a::after{
     content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;
@@ -152,21 +227,22 @@
   .menu-list .mno{font-family:var(--serif);color:var(--indigo);font-size:16px;min-width:34px}
   .menu-list .mname{font-family:var(--serif);font-size:clamp(16px,2.6vw,19px)}
   .menu-list .mdesc{font-family:var(--sans);font-size:12.5px;color:var(--muted);
-    margin-left:auto;text-align:right;max-width:52%}
-  @media(max-width:560px){
-    .menu-list a{flex-wrap:wrap;gap:8px 14px}
-    .menu-list .mdesc{margin-left:48px;text-align:left;max-width:100%;flex-basis:100%}
+    margin-left:48px;text-align:left;max-width:100%;flex-basis:100%}
+  @media(min-width:561px){
+    .menu-list .mdesc{margin-left:auto;text-align:right;max-width:52%;flex-basis:auto}
   }
 
   /* ---------- course ---------- */
-  .course{padding:15vh 0 13vh;position:relative;overflow:clip}
+  .course{padding:11vh 0 9vh;position:relative;overflow:clip}
+  @media(min-width:641px){.course{padding:15vh 0 13vh}}
   .course:nth-of-type(even){background:var(--paper-deep)}
   .watermark{
     position:absolute;top:50%;font-family:var(--serif);
-    font-size:clamp(280px,44vw,560px);line-height:1;color:var(--indigo);
+    font-size:clamp(200px,58vw,560px);line-height:1;color:var(--indigo);
     opacity:.045;pointer-events:none;user-select:none;z-index:0;
-    right:-6%;transform:translateY(-50%);
+    right:-10%;transform:translateY(-50%);
   }
+  @media(min-width:641px){.watermark{font-size:clamp(280px,44vw,560px);right:-6%}}
   .course:nth-of-type(even) .watermark{right:auto;left:-6%}
   .course .wrap{position:relative;z-index:2}
 
@@ -182,8 +258,8 @@
   .component{margin:0 0 30px}
   .component h3{font-family:var(--sans);font-weight:700;font-size:12.5px;
     letter-spacing:.22em;text-transform:uppercase;color:var(--indigo);margin-bottom:14px}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
-  @media(max-width:640px){.grid{grid-template-columns:1fr;gap:18px}}
+  .grid{display:grid;grid-template-columns:1fr;gap:18px}
+  @media(min-width:641px){.grid{grid-template-columns:1fr 1fr;gap:30px}}
 
   .label{font-family:var(--sans);font-size:10px;letter-spacing:.24em;
     text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:block}
@@ -209,8 +285,9 @@
 
   /* ---------- footer ---------- */
   footer{
-    padding:22vh 20px;text-align:center;position:relative;z-index:2;
+    padding:16vh 20px calc(16vh + 70px);text-align:center;position:relative;z-index:2;
   }
+  @media(min-width:901px){footer{padding:22vh 20px}}
   footer .enso-small{width:120px;height:120px;margin:0 auto 26px}
   footer .enso-small path{fill:none;stroke:var(--indigo);stroke-width:3.2;stroke-linecap:round}
   footer .jp-big{font-family:var(--serif);font-size:clamp(22px,4.6vw,32px);letter-spacing:.2em}
@@ -250,6 +327,30 @@
 </nav>
 
 <div class="side-kanji">口寂しい &mdash; いただきます</div>
+
+<div class="mobile-bar" id="mobileBar">
+  <span class="mb-label" id="mbLabel">口寂しい · Kuchisabishii</span>
+  <button class="mb-btn" id="mbBtn" aria-expanded="false" aria-controls="mobileMenu">献立 · Menü</button>
+</div>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mm-head">
+    <span class="mm-title">献立 — Menü</span>
+    <button class="mm-close" id="mmClose" aria-label="Menü schließen">&times;</button>
+  </div>
+  <ol>
+    <li><a href="#hero"><span class="no">&#8226;</span>Start<span class="sub">口寂しい</span></a></li>
+    <li><a href="#c1"><span class="no">01</span>Amuse<span class="sub">Nashi · Miso</span></a></li>
+    <li><a href="#c2"><span class="no">02</span>Yakitori — Chicken<span class="sub">Citrus Tare</span></a></li>
+    <li><a href="#c3"><span class="no">03</span>Yakitori — Beef<span class="sub">Caramel Tare</span></a></li>
+    <li><a href="#c4"><span class="no">04</span>Nasu Dengaku<span class="sub">Aubergine</span></a></li>
+    <li><a href="#c5"><span class="no">05</span>Grillgemüse<span class="sub">mariniert</span></a></li>
+    <li><a href="#c6"><span class="no">06</span>Aburi Tomato Nigiri<span class="sub">Yuzu-Nikiri</span></a></li>
+    <li><a href="#c7"><span class="no">07</span>Mizuna Salat<span class="sub">Miso-Dressing</span></a></li>
+    <li><a href="#c8"><span class="no">08</span>Yuzu Ponzu<span class="sub">Dip</span></a></li>
+    <li><a href="#c9"><span class="no">09</span>Dessert<span class="sub">Kokos · Yuzu</span></a></li>
+  </ol>
+</div>
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="hero">
@@ -807,6 +908,62 @@
   <div class="meta" data-reveal>Kuchisabishii &middot; Neun Gänge &middot; 10 Personen</div>
 </footer>
 
+<script>
+/* mobile bar + overlay — läuft unabhängig von GSAP */
+(function(){
+  var bar = document.getElementById("mobileBar");
+  var btn = document.getElementById("mbBtn");
+  var menu = document.getElementById("mobileMenu");
+  var closeBtn = document.getElementById("mmClose");
+  var label = document.getElementById("mbLabel");
+  if(!bar || !btn || !menu) return;
+
+  var sections = [
+    ["hero","口寂しい · Kuchisabishii"],
+    ["menu","献立 · Menü"],
+    ["c1","Gang 01 · Amuse"],
+    ["c2","Gang 02 · Yakitori Chicken"],
+    ["c3","Gang 03 · Yakitori Beef"],
+    ["c4","Gang 04 · Nasu Dengaku"],
+    ["c5","Gang 05 · Grillgemüse"],
+    ["c6","Gang 06 · Aburi Nigiri"],
+    ["c7","Gang 07 · Mizuna Salat"],
+    ["c8","Gang 08 · Yuzu Ponzu"],
+    ["c9","Gang 09 · Dessert"],
+    ["end","ごちそうさまでした"]
+  ].map(function(s){return [document.getElementById(s[0]), s[1]]})
+   .filter(function(s){return s[0]});
+
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    bar.classList.toggle("show", y > window.innerHeight * .6);
+    var mid = y + window.innerHeight * .5;
+    var current = sections[0][1];
+    for(var i = 0; i < sections.length; i++){
+      if(sections[i][0].offsetTop <= mid){ current = sections[i][1]; }
+    }
+    if(label.textContent !== current){ label.textContent = current; }
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+
+  function setOpen(open){
+    menu.classList.toggle("open", open);
+    menu.setAttribute("aria-hidden", String(!open));
+    btn.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+  btn.addEventListener("click", function(){ setOpen(true); });
+  closeBtn.addEventListener("click", function(){ setOpen(false); });
+  menu.addEventListener("click", function(e){
+    var a = e.target.closest("a");
+    if(a){ setOpen(false); } /* Anker scrollt nativ; GSAP übernimmt, falls geladen */
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") setOpen(false);
+  });
+})();
+</script>
 <script src="assets/js/gsap.min.js"></script>
 <script src="assets/js/ScrollTrigger.min.js"></script>
 <script src="assets/js/ScrollToPlugin.min.js"></script>
@@ -835,7 +992,7 @@
   });
 
   /* ---------- rail: smooth scroll + active state ---------- */
-  var railLinks = Array.prototype.slice.call(document.querySelectorAll('nav.rail a, .menu-list a[href^="#"]'));
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll('nav.rail a, .menu-list a[href^="#"], .mobile-menu a[href^="#"]'));
   railLinks.forEach(function(a){
     a.addEventListener("click", function(e){
       var target = document.querySelector(a.getAttribute("href"));
