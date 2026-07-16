@@ -332,11 +332,10 @@
   .course .csub{font-family:var(--serif);font-style:italic;color:var(--muted);
     font-size:16px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:30px}
 
-  /* ---------- nutrition tabs ---------- */
-  .nutri{margin:0 0 34px;border:1px solid var(--line);border-radius:4px;
-    padding:16px 18px 18px}
-  .nutri-tabs{display:flex;align-items:center;gap:22px;
-    border-bottom:1px solid var(--line);margin-bottom:16px}
+  /* ---------- dish tabs (recipe / macros / vitamins) ---------- */
+  .nutri{margin:4px 0 30px}
+  .nutri-tabs{display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);margin-bottom:22px}
   .nutri-tab{appearance:none;background:none;border:none;cursor:pointer;
     padding:0 0 11px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;
     text-transform:uppercase;color:var(--muted);position:relative;transition:color .3s}
@@ -543,10 +542,66 @@
     <h2 data-reveal>Amuse</h2>
     <div class="csub" data-reveal>Marinierte Nashi · Shiro Miso · Yuzu</div>
     <div class="nutri" data-reveal>
-      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
-        <button type="button" class="nutri-tab" role="tab" id="tab-c1-m" aria-controls="panel-c1-m" aria-selected="true">Makros</button>
+      <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c1-r" aria-controls="panel-c1-r" aria-selected="true">Rezept</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c1-m" aria-controls="panel-c1-m" aria-selected="false" tabindex="-1">Makros</button>
         <button type="button" class="nutri-tab" role="tab" id="tab-c1-v" aria-controls="panel-c1-v" aria-selected="false" tabindex="-1">Vitamine</button>
         <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c1-r" aria-labelledby="tab-c1-r">
+        <div class="component" data-reveal>
+          <h3>Marinierte Nashi</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Nashi</span><span class="d"></span><span class="q">5 Stück</span></li>
+                <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">150 ml</span></li>
+                <li><span class="n">Reisessig</span><span class="d"></span><span class="q">100 ml</span></li>
+                <li><span class="n">Mirin</span><span class="d"></span><span class="q">80 ml</span></li>
+                <li><span class="n">Zucker</span><span class="d"></span><span class="q">20 g</span></li>
+                <li><span class="n">Salz</span><span class="d"></span><span class="q">5 g</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Marinade verrühren.</li>
+                <li>Nashi mit der Mandoline hauchdünn hobeln.</li>
+                <li>5–10 Minuten marinieren.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component" data-reveal>
+          <h3>Shiro-Miso-Creme</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Shiro Miso</span><span class="d"></span><span class="q">250 g</span></li>
+                <li><span class="n">Seidentofu</span><span class="d"></span><span class="q">200 g</span></li>
+                <li><span class="n">Tahini</span><span class="d"></span><span class="q">50 g</span></li>
+                <li><span class="n">Mirin</span><span class="d"></span><span class="q">30 ml</span></li>
+                <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">20 ml</span></li>
+                <li><span class="n">Sesamöl</span><span class="d"></span><span class="q">10 ml</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Alles fein pürieren.</li>
+                <li>Mindestens 2 Stunden kalt stellen.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component finish" data-reveal>
+          <span class="label">Finish</span>
+          <span>Schwarzer Sesam · frische Yuzu-Zeste · optional Finger Lime oder marinierte Sago-Perlen</span>
+        </div>
       </div>
       <div class="nutri-panel" role="tabpanel" id="panel-c1-m" aria-labelledby="tab-c1-m">
         <div class="macro-grid">
@@ -583,60 +638,6 @@
         <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
       </div>
     </div>
-
-    <div class="component" data-reveal>
-      <h3>Marinierte Nashi</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Nashi</span><span class="d"></span><span class="q">5 Stück</span></li>
-            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">150 ml</span></li>
-            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">100 ml</span></li>
-            <li><span class="n">Mirin</span><span class="d"></span><span class="q">80 ml</span></li>
-            <li><span class="n">Zucker</span><span class="d"></span><span class="q">20 g</span></li>
-            <li><span class="n">Salz</span><span class="d"></span><span class="q">5 g</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Marinade verrühren.</li>
-            <li>Nashi mit der Mandoline hauchdünn hobeln.</li>
-            <li>5–10 Minuten marinieren.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component" data-reveal>
-      <h3>Shiro-Miso-Creme</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Shiro Miso</span><span class="d"></span><span class="q">250 g</span></li>
-            <li><span class="n">Seidentofu</span><span class="d"></span><span class="q">200 g</span></li>
-            <li><span class="n">Tahini</span><span class="d"></span><span class="q">50 g</span></li>
-            <li><span class="n">Mirin</span><span class="d"></span><span class="q">30 ml</span></li>
-            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">20 ml</span></li>
-            <li><span class="n">Sesamöl</span><span class="d"></span><span class="q">10 ml</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Alles fein pürieren.</li>
-            <li>Mindestens 2 Stunden kalt stellen.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component finish" data-reveal>
-      <span class="label">Finish</span>
-      <span>Schwarzer Sesam · frische Yuzu-Zeste · optional Finger Lime oder marinierte Sago-Perlen</span>
-    </div>
   </div>
 </section>
 
@@ -651,10 +652,63 @@
     <h2 data-reveal>Yakitori — Chicken Style</h2>
     <div class="csub" data-reveal>Seitan · Citrus Tare</div>
     <div class="nutri" data-reveal>
-      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
-        <button type="button" class="nutri-tab" role="tab" id="tab-c2-m" aria-controls="panel-c2-m" aria-selected="true">Makros</button>
+      <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c2-r" aria-controls="panel-c2-r" aria-selected="true">Rezept</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c2-m" aria-controls="panel-c2-m" aria-selected="false" tabindex="-1">Makros</button>
         <button type="button" class="nutri-tab" role="tab" id="tab-c2-v" aria-controls="panel-c2-v" aria-selected="false" tabindex="-1">Vitamine</button>
         <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c2-r" aria-labelledby="tab-c2-r">
+        <div class="component" data-reveal>
+          <h3>Seitan</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Seitan</span><span class="d"></span><span class="q">ca. 2 kg</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>In gleichmäßige Würfel schneiden.</li>
+                <li>Auf Spieße stecken.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component" data-reveal>
+          <h3>Citrus Tare</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">300 ml</span></li>
+                <li><span class="n">Mirin</span><span class="d"></span><span class="q">300 ml</span></li>
+                <li><span class="n">Sake</span><span class="d"></span><span class="q">200 ml</span></li>
+                <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">120 ml</span></li>
+                <li><span class="n">Limettensaft</span><span class="d"></span><span class="q">50 ml</span></li>
+                <li><span class="n">Zucker</span><span class="d"></span><span class="q">60 g</span></li>
+                <li><span class="n">Ingwer, gerieben</span><span class="d"></span><span class="q">50 g</span></li>
+                <li><span class="n">Frühlingszwiebeln</span><span class="d"></span><span class="q">4 Stück</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Alles 15–20 Minuten einkochen.</li>
+                <li>Abkühlen lassen.</li>
+                <li>Spieße mehrfach glasieren.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component finish" data-reveal>
+          <span class="label">Finish</span>
+          <span>Weißer Sesam · Yuzu-Zeste · Frühlingszwiebeln</span>
+        </div>
       </div>
       <div class="nutri-panel" role="tabpanel" id="panel-c2-m" aria-labelledby="tab-c2-m">
         <div class="macro-grid">
@@ -691,57 +745,6 @@
         <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
       </div>
     </div>
-
-    <div class="component" data-reveal>
-      <h3>Seitan</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Seitan</span><span class="d"></span><span class="q">ca. 2 kg</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>In gleichmäßige Würfel schneiden.</li>
-            <li>Auf Spieße stecken.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component" data-reveal>
-      <h3>Citrus Tare</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">300 ml</span></li>
-            <li><span class="n">Mirin</span><span class="d"></span><span class="q">300 ml</span></li>
-            <li><span class="n">Sake</span><span class="d"></span><span class="q">200 ml</span></li>
-            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">120 ml</span></li>
-            <li><span class="n">Limettensaft</span><span class="d"></span><span class="q">50 ml</span></li>
-            <li><span class="n">Zucker</span><span class="d"></span><span class="q">60 g</span></li>
-            <li><span class="n">Ingwer, gerieben</span><span class="d"></span><span class="q">50 g</span></li>
-            <li><span class="n">Frühlingszwiebeln</span><span class="d"></span><span class="q">4 Stück</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Alles 15–20 Minuten einkochen.</li>
-            <li>Abkühlen lassen.</li>
-            <li>Spieße mehrfach glasieren.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component finish" data-reveal>
-      <span class="label">Finish</span>
-      <span>Weißer Sesam · Yuzu-Zeste · Frühlingszwiebeln</span>
-    </div>
   </div>
 </section>
 
@@ -756,10 +759,59 @@
     <h2 data-reveal>Yakitori — Beef Style</h2>
     <div class="csub" data-reveal>Seitan · Caramel Tare · Sansho</div>
     <div class="nutri" data-reveal>
-      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
-        <button type="button" class="nutri-tab" role="tab" id="tab-c3-m" aria-controls="panel-c3-m" aria-selected="true">Makros</button>
+      <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c3-r" aria-controls="panel-c3-r" aria-selected="true">Rezept</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c3-m" aria-controls="panel-c3-m" aria-selected="false" tabindex="-1">Makros</button>
         <button type="button" class="nutri-tab" role="tab" id="tab-c3-v" aria-controls="panel-c3-v" aria-selected="false" tabindex="-1">Vitamine</button>
         <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c3-r" aria-labelledby="tab-c3-r">
+        <div class="component" data-reveal>
+          <h3>Seitan</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Seitan</span><span class="d"></span><span class="q">ca. 2 kg</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps"><li>Auf Spieße stecken.</li></ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component" data-reveal>
+          <h3>Caramel Tare</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Dunkle Sojasauce</span><span class="d"></span><span class="q">300 ml</span></li>
+                <li><span class="n">Mirin</span><span class="d"></span><span class="q">300 ml</span></li>
+                <li><span class="n">Sake</span><span class="d"></span><span class="q">200 ml</span></li>
+                <li><span class="n">Brauner Zucker</span><span class="d"></span><span class="q">120 g</span></li>
+                <li><span class="n">Aka Miso</span><span class="d"></span><span class="q">40 g</span></li>
+                <li><span class="n">Knoblauchzehen</span><span class="d"></span><span class="q">4 Stück</span></li>
+                <li><span class="n">Schalotten</span><span class="d"></span><span class="q">2 Stück</span></li>
+                <li><span class="n">Sansho</span><span class="d"></span><span class="q">2 TL</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Alles langsam sirupartig einkochen.</li>
+                <li>Beim Grillen mehrmals glasieren.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component finish" data-reveal>
+          <span class="label">Finish</span>
+          <span>Schwarzer Sesam · Sansho</span>
+        </div>
       </div>
       <div class="nutri-panel" role="tabpanel" id="panel-c3-m" aria-labelledby="tab-c3-m">
         <div class="macro-grid">
@@ -796,53 +848,6 @@
         <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
       </div>
     </div>
-
-    <div class="component" data-reveal>
-      <h3>Seitan</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Seitan</span><span class="d"></span><span class="q">ca. 2 kg</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps"><li>Auf Spieße stecken.</li></ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component" data-reveal>
-      <h3>Caramel Tare</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Dunkle Sojasauce</span><span class="d"></span><span class="q">300 ml</span></li>
-            <li><span class="n">Mirin</span><span class="d"></span><span class="q">300 ml</span></li>
-            <li><span class="n">Sake</span><span class="d"></span><span class="q">200 ml</span></li>
-            <li><span class="n">Brauner Zucker</span><span class="d"></span><span class="q">120 g</span></li>
-            <li><span class="n">Aka Miso</span><span class="d"></span><span class="q">40 g</span></li>
-            <li><span class="n">Knoblauchzehen</span><span class="d"></span><span class="q">4 Stück</span></li>
-            <li><span class="n">Schalotten</span><span class="d"></span><span class="q">2 Stück</span></li>
-            <li><span class="n">Sansho</span><span class="d"></span><span class="q">2 TL</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Alles langsam sirupartig einkochen.</li>
-            <li>Beim Grillen mehrmals glasieren.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component finish" data-reveal>
-      <span class="label">Finish</span>
-      <span>Schwarzer Sesam · Sansho</span>
-    </div>
   </div>
 </section>
 
@@ -857,10 +862,43 @@
     <h2 data-reveal>Nasu Dengaku</h2>
     <div class="csub" data-reveal>Aubergine · Doppel-Miso-Glasur</div>
     <div class="nutri" data-reveal>
-      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
-        <button type="button" class="nutri-tab" role="tab" id="tab-c4-m" aria-controls="panel-c4-m" aria-selected="true">Makros</button>
+      <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c4-r" aria-controls="panel-c4-r" aria-selected="true">Rezept</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c4-m" aria-controls="panel-c4-m" aria-selected="false" tabindex="-1">Makros</button>
         <button type="button" class="nutri-tab" role="tab" id="tab-c4-v" aria-controls="panel-c4-v" aria-selected="false" tabindex="-1">Vitamine</button>
         <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c4-r" aria-labelledby="tab-c4-r">
+        <div class="component" data-reveal>
+          <h3>Aubergine &amp; Glasur</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Kleine Auberginen</span><span class="d"></span><span class="q">10 Stück</span></li>
+                <li><span class="n">Shiro Miso</span><span class="d"></span><span class="q">200 g</span></li>
+                <li><span class="n">Aka Miso</span><span class="d"></span><span class="q">100 g</span></li>
+                <li><span class="n">Mirin</span><span class="d"></span><span class="q">120 ml</span></li>
+                <li><span class="n">Sake</span><span class="d"></span><span class="q">60 ml</span></li>
+                <li><span class="n">Zucker</span><span class="d"></span><span class="q">50 g</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Auberginen halbieren, Rauten einschneiden.</li>
+                <li>Vorgaren.</li>
+                <li>Glasur-Zutaten verrühren, aufstreichen.</li>
+                <li>Über Binchotan oder unter dem Grill karamellisieren.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component finish" data-reveal>
+          <span class="label">Finish</span>
+          <span>Weißer Sesam · Shiso oder Frühlingszwiebel</span>
+        </div>
       </div>
       <div class="nutri-panel" role="tabpanel" id="panel-c4-m" aria-labelledby="tab-c4-m">
         <div class="macro-grid">
@@ -897,37 +935,6 @@
         <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
       </div>
     </div>
-
-    <div class="component" data-reveal>
-      <h3>Aubergine &amp; Glasur</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Kleine Auberginen</span><span class="d"></span><span class="q">10 Stück</span></li>
-            <li><span class="n">Shiro Miso</span><span class="d"></span><span class="q">200 g</span></li>
-            <li><span class="n">Aka Miso</span><span class="d"></span><span class="q">100 g</span></li>
-            <li><span class="n">Mirin</span><span class="d"></span><span class="q">120 ml</span></li>
-            <li><span class="n">Sake</span><span class="d"></span><span class="q">60 ml</span></li>
-            <li><span class="n">Zucker</span><span class="d"></span><span class="q">50 g</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Auberginen halbieren, Rauten einschneiden.</li>
-            <li>Vorgaren.</li>
-            <li>Glasur-Zutaten verrühren, aufstreichen.</li>
-            <li>Über Binchotan oder unter dem Grill karamellisieren.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component finish" data-reveal>
-      <span class="label">Finish</span>
-      <span>Weißer Sesam · Shiso oder Frühlingszwiebel</span>
-    </div>
   </div>
 </section>
 
@@ -942,10 +949,45 @@
     <h2 data-reveal>Mariniertes Grillgemüse</h2>
     <div class="csub" data-reveal>Kräuterseitling · Spitzpaprika · Zucchini</div>
     <div class="nutri" data-reveal>
-      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
-        <button type="button" class="nutri-tab" role="tab" id="tab-c5-m" aria-controls="panel-c5-m" aria-selected="true">Makros</button>
+      <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c5-r" aria-controls="panel-c5-r" aria-selected="true">Rezept</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c5-m" aria-controls="panel-c5-m" aria-selected="false" tabindex="-1">Makros</button>
         <button type="button" class="nutri-tab" role="tab" id="tab-c5-v" aria-controls="panel-c5-v" aria-selected="false" tabindex="-1">Vitamine</button>
         <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c5-r" aria-labelledby="tab-c5-r">
+        <div class="component" data-reveal>
+          <h3>Gemüse &amp; Marinade</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Kräuterseitlinge</span><span class="d"></span><span class="q">800 g</span></li>
+                <li><span class="n">Spitzpaprika</span><span class="d"></span><span class="q">6 Stück</span></li>
+                <li><span class="n">Zucchini</span><span class="d"></span><span class="q">4 Stück</span></li>
+                <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">150 ml</span></li>
+                <li><span class="n">Mirin</span><span class="d"></span><span class="q">100 ml</span></li>
+                <li><span class="n">Sesamöl</span><span class="d"></span><span class="q">60 ml</span></li>
+                <li><span class="n">Reisessig</span><span class="d"></span><span class="q">50 ml</span></li>
+                <li><span class="n">Knoblauchzehen</span><span class="d"></span><span class="q">3 Stück</span></li>
+                <li><span class="n">Ingwer, gerieben</span><span class="d"></span><span class="q">30 g</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Gemüse in grillfähige Stücke schneiden, Kräuterseitlinge längs halbieren und kreuzweise einschneiden.</li>
+                <li>Marinade verrühren, Gemüse mindestens 30 Minuten marinieren.</li>
+                <li>Heiß grillen, bis Röstaromen entstehen; mit restlicher Marinade nachpinseln.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component finish" data-reveal>
+          <span class="label">Finish</span>
+          <span>Gerösteter Sesam · Yuzu Ponzu zum Dippen (Gang 08)</span>
+        </div>
       </div>
       <div class="nutri-panel" role="tabpanel" id="panel-c5-m" aria-labelledby="tab-c5-m">
         <div class="macro-grid">
@@ -982,39 +1024,6 @@
         <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
       </div>
     </div>
-
-    <div class="component" data-reveal>
-      <h3>Gemüse &amp; Marinade</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Kräuterseitlinge</span><span class="d"></span><span class="q">800 g</span></li>
-            <li><span class="n">Spitzpaprika</span><span class="d"></span><span class="q">6 Stück</span></li>
-            <li><span class="n">Zucchini</span><span class="d"></span><span class="q">4 Stück</span></li>
-            <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">150 ml</span></li>
-            <li><span class="n">Mirin</span><span class="d"></span><span class="q">100 ml</span></li>
-            <li><span class="n">Sesamöl</span><span class="d"></span><span class="q">60 ml</span></li>
-            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">50 ml</span></li>
-            <li><span class="n">Knoblauchzehen</span><span class="d"></span><span class="q">3 Stück</span></li>
-            <li><span class="n">Ingwer, gerieben</span><span class="d"></span><span class="q">30 g</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Gemüse in grillfähige Stücke schneiden, Kräuterseitlinge längs halbieren und kreuzweise einschneiden.</li>
-            <li>Marinade verrühren, Gemüse mindestens 30 Minuten marinieren.</li>
-            <li>Heiß grillen, bis Röstaromen entstehen; mit restlicher Marinade nachpinseln.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component finish" data-reveal>
-      <span class="label">Finish</span>
-      <span>Gerösteter Sesam · Yuzu Ponzu zum Dippen (Gang 08)</span>
-    </div>
   </div>
 </section>
 
@@ -1029,10 +1038,67 @@
     <h2 data-reveal>Aburi Tomato Nigiri</h2>
     <div class="csub" data-reveal>Dashi-Tomate · Yuzu-Nikiri</div>
     <div class="nutri" data-reveal>
-      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
-        <button type="button" class="nutri-tab" role="tab" id="tab-c6-m" aria-controls="panel-c6-m" aria-selected="true">Makros</button>
+      <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c6-r" aria-controls="panel-c6-r" aria-selected="true">Rezept</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c6-m" aria-controls="panel-c6-m" aria-selected="false" tabindex="-1">Makros</button>
         <button type="button" class="nutri-tab" role="tab" id="tab-c6-v" aria-controls="panel-c6-v" aria-selected="false" tabindex="-1">Vitamine</button>
         <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c6-r" aria-labelledby="tab-c6-r">
+        <div class="component" data-reveal>
+          <h3>Sushi-Reis</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Sushi-Reis</span><span class="d"></span><span class="q">1 kg</span></li>
+                <li><span class="n">Reisessig</span><span class="d"></span><span class="q">150 ml</span></li>
+                <li><span class="n">Zucker</span><span class="d"></span><span class="q">40 g</span></li>
+                <li><span class="n">Salz</span><span class="d"></span><span class="q">15 g</span></li>
+                <li><span class="n">Kombu</span><span class="d"></span><span class="q">1 Blatt</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Reis waschen, mit Kombu kochen.</li>
+                <li>Sushi-Essig unterheben, auf Körpertemperatur abkühlen lassen.</li>
+                <li>Zu kleinen Nigiri formen.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component" data-reveal>
+          <h3>Dashi-Tomate &amp; Yuzu-Nikiri</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Feste Tomaten</span><span class="d"></span><span class="q">10 Stück</span></li>
+                <li><span class="n">Shiitake-Kombu-Dashi</span><span class="d"></span><span class="q">500 ml</span></li>
+                <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">100 ml</span></li>
+                <li><span class="n">Mirin</span><span class="d"></span><span class="q">80 ml</span></li>
+                <li><span class="n">Sake</span><span class="d"></span><span class="q">40 ml</span></li>
+                <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">30 ml</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Tomaten blanchieren, häuten, vierteln und entkernen.</li>
+                <li>Über Nacht im Dashi marinieren.</li>
+                <li>Sojasauce, Mirin, Sake und Yuzu kurz einkochen (Nikiri).</li>
+                <li>Tomate auf Reis setzen, abflämmen, mit Nikiri lackieren.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component finish" data-reveal>
+          <span class="label">Finish</span>
+          <span>Yuzu-Zeste · Shiso fein geschnitten · Flockensalz</span>
+        </div>
       </div>
       <div class="nutri-panel" role="tabpanel" id="panel-c6-m" aria-labelledby="tab-c6-m">
         <div class="macro-grid">
@@ -1069,61 +1135,6 @@
         <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
       </div>
     </div>
-
-    <div class="component" data-reveal>
-      <h3>Sushi-Reis</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Sushi-Reis</span><span class="d"></span><span class="q">1 kg</span></li>
-            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">150 ml</span></li>
-            <li><span class="n">Zucker</span><span class="d"></span><span class="q">40 g</span></li>
-            <li><span class="n">Salz</span><span class="d"></span><span class="q">15 g</span></li>
-            <li><span class="n">Kombu</span><span class="d"></span><span class="q">1 Blatt</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Reis waschen, mit Kombu kochen.</li>
-            <li>Sushi-Essig unterheben, auf Körpertemperatur abkühlen lassen.</li>
-            <li>Zu kleinen Nigiri formen.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component" data-reveal>
-      <h3>Dashi-Tomate &amp; Yuzu-Nikiri</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Feste Tomaten</span><span class="d"></span><span class="q">10 Stück</span></li>
-            <li><span class="n">Shiitake-Kombu-Dashi</span><span class="d"></span><span class="q">500 ml</span></li>
-            <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">100 ml</span></li>
-            <li><span class="n">Mirin</span><span class="d"></span><span class="q">80 ml</span></li>
-            <li><span class="n">Sake</span><span class="d"></span><span class="q">40 ml</span></li>
-            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">30 ml</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Tomaten blanchieren, häuten, vierteln und entkernen.</li>
-            <li>Über Nacht im Dashi marinieren.</li>
-            <li>Sojasauce, Mirin, Sake und Yuzu kurz einkochen (Nikiri).</li>
-            <li>Tomate auf Reis setzen, abflämmen, mit Nikiri lackieren.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component finish" data-reveal>
-      <span class="label">Finish</span>
-      <span>Yuzu-Zeste · Shiso fein geschnitten · Flockensalz</span>
-    </div>
   </div>
 </section>
 
@@ -1138,10 +1149,44 @@
     <h2 data-reveal>Mizuna Salat</h2>
     <div class="csub" data-reveal>Nashi · Daikon · Miso-Dressing</div>
     <div class="nutri" data-reveal>
-      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
-        <button type="button" class="nutri-tab" role="tab" id="tab-c7-m" aria-controls="panel-c7-m" aria-selected="true">Makros</button>
+      <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c7-r" aria-controls="panel-c7-r" aria-selected="true">Rezept</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c7-m" aria-controls="panel-c7-m" aria-selected="false" tabindex="-1">Makros</button>
         <button type="button" class="nutri-tab" role="tab" id="tab-c7-v" aria-controls="panel-c7-v" aria-selected="false" tabindex="-1">Vitamine</button>
         <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c7-r" aria-labelledby="tab-c7-r">
+        <div class="component" data-reveal>
+          <h3>Salat &amp; Dressing</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Mizuna</span><span class="d"></span><span class="q">400 g</span></li>
+                <li><span class="n">Nashi</span><span class="d"></span><span class="q">2 Stück</span></li>
+                <li><span class="n">Daikon</span><span class="d"></span><span class="q">300 g</span></li>
+                <li><span class="n">Shiro Miso</span><span class="d"></span><span class="q">60 g</span></li>
+                <li><span class="n">Reisessig</span><span class="d"></span><span class="q">60 ml</span></li>
+                <li><span class="n">Mirin</span><span class="d"></span><span class="q">40 ml</span></li>
+                <li><span class="n">Sesamöl</span><span class="d"></span><span class="q">30 ml</span></li>
+                <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">20 ml</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Nashi und Daikon in feine Julienne schneiden.</li>
+                <li>Dressing glatt rühren.</li>
+                <li>Mizuna erst kurz vor dem Servieren anmachen.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component finish" data-reveal>
+          <span class="label">Finish</span>
+          <span>Gerösteter weißer Sesam · hauchdünner Daikon als Textur</span>
+        </div>
       </div>
       <div class="nutri-panel" role="tabpanel" id="panel-c7-m" aria-labelledby="tab-c7-m">
         <div class="macro-grid">
@@ -1178,38 +1223,6 @@
         <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
       </div>
     </div>
-
-    <div class="component" data-reveal>
-      <h3>Salat &amp; Dressing</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Mizuna</span><span class="d"></span><span class="q">400 g</span></li>
-            <li><span class="n">Nashi</span><span class="d"></span><span class="q">2 Stück</span></li>
-            <li><span class="n">Daikon</span><span class="d"></span><span class="q">300 g</span></li>
-            <li><span class="n">Shiro Miso</span><span class="d"></span><span class="q">60 g</span></li>
-            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">60 ml</span></li>
-            <li><span class="n">Mirin</span><span class="d"></span><span class="q">40 ml</span></li>
-            <li><span class="n">Sesamöl</span><span class="d"></span><span class="q">30 ml</span></li>
-            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">20 ml</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Nashi und Daikon in feine Julienne schneiden.</li>
-            <li>Dressing glatt rühren.</li>
-            <li>Mizuna erst kurz vor dem Servieren anmachen.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component finish" data-reveal>
-      <span class="label">Finish</span>
-      <span>Gerösteter weißer Sesam · hauchdünner Daikon als Textur</span>
-    </div>
   </div>
 </section>
 
@@ -1224,10 +1237,40 @@
     <h2 data-reveal>Yuzu Ponzu</h2>
     <div class="csub" data-reveal>Dip zu Yakitori &amp; Grillgemüse</div>
     <div class="nutri" data-reveal>
-      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
-        <button type="button" class="nutri-tab" role="tab" id="tab-c8-m" aria-controls="panel-c8-m" aria-selected="true">Makros</button>
+      <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c8-r" aria-controls="panel-c8-r" aria-selected="true">Rezept</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c8-m" aria-controls="panel-c8-m" aria-selected="false" tabindex="-1">Makros</button>
         <button type="button" class="nutri-tab" role="tab" id="tab-c8-v" aria-controls="panel-c8-v" aria-selected="false" tabindex="-1">Vitamine</button>
         <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c8-r" aria-labelledby="tab-c8-r">
+        <div class="component" data-reveal>
+          <h3>Ponzu</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">250 ml</span></li>
+                <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">120 ml</span></li>
+                <li><span class="n">Limettensaft</span><span class="d"></span><span class="q">40 ml</span></li>
+                <li><span class="n">Mirin</span><span class="d"></span><span class="q">60 ml</span></li>
+                <li><span class="n">Reisessig</span><span class="d"></span><span class="q">60 ml</span></li>
+                <li><span class="n">Kombu</span><span class="d"></span><span class="q">1 Blatt</span></li>
+                <li><span class="n">Getrocknete Shiitake</span><span class="d"></span><span class="q">2 Stück</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Alle Zutaten kalt ansetzen.</li>
+                <li>Über Nacht ziehen lassen.</li>
+                <li>Abseihen und kalt servieren.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="note" data-reveal>Hält sich gekühlt mehrere Wochen — am besten 2–3 Tage vor dem Dinner ansetzen.</div>
       </div>
       <div class="nutri-panel" role="tabpanel" id="panel-c8-m" aria-labelledby="tab-c8-m">
         <div class="macro-grid">
@@ -1263,34 +1306,6 @@
         <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
       </div>
     </div>
-
-    <div class="component" data-reveal>
-      <h3>Ponzu</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">250 ml</span></li>
-            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">120 ml</span></li>
-            <li><span class="n">Limettensaft</span><span class="d"></span><span class="q">40 ml</span></li>
-            <li><span class="n">Mirin</span><span class="d"></span><span class="q">60 ml</span></li>
-            <li><span class="n">Reisessig</span><span class="d"></span><span class="q">60 ml</span></li>
-            <li><span class="n">Kombu</span><span class="d"></span><span class="q">1 Blatt</span></li>
-            <li><span class="n">Getrocknete Shiitake</span><span class="d"></span><span class="q">2 Stück</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Alle Zutaten kalt ansetzen.</li>
-            <li>Über Nacht ziehen lassen.</li>
-            <li>Abseihen und kalt servieren.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="note" data-reveal>Hält sich gekühlt mehrere Wochen — am besten 2–3 Tage vor dem Dinner ansetzen.</div>
   </div>
 </section>
 
@@ -1305,10 +1320,64 @@
     <h2 data-reveal>Dessert</h2>
     <div class="csub" data-reveal>Kokos-Yuzu-Eis · eingelegte Nashi · schwarzer Sesam</div>
     <div class="nutri" data-reveal>
-      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
-        <button type="button" class="nutri-tab" role="tab" id="tab-c9-m" aria-controls="panel-c9-m" aria-selected="true">Makros</button>
+      <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c9-r" aria-controls="panel-c9-r" aria-selected="true">Rezept</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c9-m" aria-controls="panel-c9-m" aria-selected="false" tabindex="-1">Makros</button>
         <button type="button" class="nutri-tab" role="tab" id="tab-c9-v" aria-controls="panel-c9-v" aria-selected="false" tabindex="-1">Vitamine</button>
         <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c9-r" aria-labelledby="tab-c9-r">
+        <div class="component" data-reveal>
+          <h3>Kokos-Yuzu-Eis</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Kokosmilch</span><span class="d"></span><span class="q">800 ml</span></li>
+                <li><span class="n">Zucker</span><span class="d"></span><span class="q">160 g</span></li>
+                <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">100 ml</span></li>
+                <li><span class="n">Glukosesirup</span><span class="d"></span><span class="q">60 g</span></li>
+                <li><span class="n">Salz</span><span class="d"></span><span class="q">2 g</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Kokosmilch, Zucker, Glukose und Salz erwärmen, bis alles gelöst ist.</li>
+                <li>Abkühlen, Yuzu-Saft einrühren.</li>
+                <li>In der Eismaschine frieren.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component" data-reveal>
+          <h3>Eingelegte Nashi &amp; Sesam</h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Nashi</span><span class="d"></span><span class="q">3 Stück</span></li>
+                <li><span class="n">Marinade von Gang 01</span><span class="d"></span><span class="q">Rest</span></li>
+                <li><span class="n">Schwarzer Sesam, gemörsert</span><span class="d"></span><span class="q">40 g</span></li>
+                <li><span class="n">Zucker</span><span class="d"></span><span class="q">20 g</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Nashi in feine Würfel schneiden, in der Marinade einlegen.</li>
+                <li>Sesam mit Zucker mörsern.</li>
+                <li>Eis mit Nashi und Sesam anrichten.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component finish" data-reveal>
+          <span class="label">Finish</span>
+          <span>Yuzu-Zeste · optional gepuffter Reis für Crunch</span>
+        </div>
       </div>
       <div class="nutri-panel" role="tabpanel" id="panel-c9-m" aria-labelledby="tab-c9-m">
         <div class="macro-grid">
@@ -1344,58 +1413,6 @@
         </ul>
         <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
       </div>
-    </div>
-
-    <div class="component" data-reveal>
-      <h3>Kokos-Yuzu-Eis</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Kokosmilch</span><span class="d"></span><span class="q">800 ml</span></li>
-            <li><span class="n">Zucker</span><span class="d"></span><span class="q">160 g</span></li>
-            <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">100 ml</span></li>
-            <li><span class="n">Glukosesirup</span><span class="d"></span><span class="q">60 g</span></li>
-            <li><span class="n">Salz</span><span class="d"></span><span class="q">2 g</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Kokosmilch, Zucker, Glukose und Salz erwärmen, bis alles gelöst ist.</li>
-            <li>Abkühlen, Yuzu-Saft einrühren.</li>
-            <li>In der Eismaschine frieren.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component" data-reveal>
-      <h3>Eingelegte Nashi &amp; Sesam</h3>
-      <div class="grid">
-        <div>
-          <span class="label">Zutaten</span>
-          <ul class="ing">
-            <li><span class="n">Nashi</span><span class="d"></span><span class="q">3 Stück</span></li>
-            <li><span class="n">Marinade von Gang 01</span><span class="d"></span><span class="q">Rest</span></li>
-            <li><span class="n">Schwarzer Sesam, gemörsert</span><span class="d"></span><span class="q">40 g</span></li>
-            <li><span class="n">Zucker</span><span class="d"></span><span class="q">20 g</span></li>
-          </ul>
-        </div>
-        <div>
-          <span class="label">Zubereitung</span>
-          <ol class="steps">
-            <li>Nashi in feine Würfel schneiden, in der Marinade einlegen.</li>
-            <li>Sesam mit Zucker mörsern.</li>
-            <li>Eis mit Nashi und Sesam anrichten.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div class="component finish" data-reveal>
-      <span class="label">Finish</span>
-      <span>Yuzu-Zeste · optional gepuffter Reis für Crunch</span>
     </div>
   </div>
 </section>
@@ -1457,6 +1474,8 @@
         t.tabIndex = on ? 0 : -1;
         if(panels[j]){ panels[j].hidden = !on; }
       });
+      var per = group.querySelector(".nutri-per");
+      if(per){ per.style.visibility = /-r$/.test(tabs[i].id) ? "hidden" : "visible"; }
     }
     tabs.forEach(function(t, i){
       t.addEventListener("click", function(){ select(i); });
