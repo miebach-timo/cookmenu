@@ -332,6 +332,50 @@
   .course .csub{font-family:var(--serif);font-style:italic;color:var(--muted);
     font-size:16px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:30px}
 
+  /* ---------- nutrition tabs ---------- */
+  .nutri{margin:0 0 34px;border:1px solid var(--line);border-radius:4px;
+    padding:16px 18px 18px}
+  .nutri-tabs{display:flex;align-items:center;gap:22px;
+    border-bottom:1px solid var(--line);margin-bottom:16px}
+  .nutri-tab{appearance:none;background:none;border:none;cursor:pointer;
+    padding:0 0 11px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);position:relative;transition:color .3s}
+  .nutri-tab[aria-selected="true"]{color:var(--indigo)}
+  .nutri-tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+    background:var(--indigo);transform:scaleX(0);transform-origin:left;
+    transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  .nutri-tab[aria-selected="true"]::after{transform:scaleX(1)}
+  .nutri-per{margin-left:auto;font-family:var(--sans);font-size:9.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted)}
+  .nutri-panel[hidden]{display:none}
+  .nutri-panel{animation:nutriFade .4s ease}
+  @keyframes nutriFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .macro-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 18px}
+  @media(min-width:641px){.macro-grid{grid-template-columns:repeat(4,1fr)}}
+  .macro{display:flex;flex-direction:column;gap:4px}
+  .macro .mv{font-family:var(--serif);font-size:24px;color:var(--indigo);line-height:1;
+    font-variant-numeric:tabular-nums}
+  .macro .ml{font-family:var(--sans);font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted)}
+  .energy-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;
+    margin:20px 0 9px;background:var(--line)}
+  .energy-bar .seg{height:100%}
+  .seg-p{background:var(--shiso)} .seg-c{background:var(--indigo)} .seg-f{background:var(--yuzu)}
+  .energy-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--sans);
+    font-size:10px;letter-spacing:.06em;color:var(--muted);margin-bottom:18px}
+  .energy-legend span{display:inline-flex;align-items:center;gap:6px}
+  .energy-legend .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+  .dot-p{background:var(--shiso)} .dot-c{background:var(--indigo)} .dot-f{background:var(--yuzu)}
+  .macro-detail,.vit-list{list-style:none;padding:0;margin:0}
+  .macro-detail li,.vit-list li{display:flex;align-items:baseline;font-size:13px;padding:5px 0}
+  .macro-detail .n,.vit-list .n{flex:0 0 auto;padding-right:6px;color:var(--ink)}
+  .macro-detail .d,.vit-list .d{flex:1 1 auto;border-bottom:1px dotted var(--line);
+    transform:translateY(-4px);margin:0 4px}
+  .macro-detail .q,.vit-list .q{flex:0 0 auto;font-variant-numeric:tabular-nums;
+    color:var(--muted);white-space:nowrap}
+  .nutri-note{font-family:var(--sans);font-size:10.5px;color:var(--muted);
+    margin:14px 0 0;line-height:1.5}
+
   .component{margin:0 0 30px}
   .component h3{font-family:var(--sans);font-weight:700;font-size:12.5px;
     letter-spacing:.22em;text-transform:uppercase;color:var(--indigo);margin-bottom:14px}
@@ -498,6 +542,47 @@
     </div>
     <h2 data-reveal>Amuse</h2>
     <div class="csub" data-reveal>Marinierte Nashi · Shiro Miso · Yuzu</div>
+    <div class="nutri" data-reveal>
+      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c1-m" aria-controls="panel-c1-m" aria-selected="true">Makros</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c1-v" aria-controls="panel-c1-v" aria-selected="false" tabindex="-1">Vitamine</button>
+        <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c1-m" aria-labelledby="tab-c1-m">
+        <div class="macro-grid">
+          <div class="macro"><span class="mv">160</span><span class="ml">kcal</span></div>
+          <div class="macro"><span class="mv">6 g</span><span class="ml">Protein</span></div>
+          <div class="macro"><span class="mv">6 g</span><span class="ml">Fett</span></div>
+          <div class="macro"><span class="mv">20 g</span><span class="ml">Kohlenhydrate</span></div>
+        </div>
+        <div class="energy-bar" role="img" aria-label="Energieverteilung: Protein 15 Prozent, Kohlenhydrate 51 Prozent, Fett 34 Prozent">
+          <span class="seg seg-p" style="width:15%"></span>
+          <span class="seg seg-c" style="width:51%"></span>
+          <span class="seg seg-f" style="width:34%"></span>
+        </div>
+        <div class="energy-legend" aria-hidden="true">
+          <span><i class="dot dot-p"></i>Protein 15%</span>
+          <span><i class="dot dot-c"></i>Carbs 51%</span>
+          <span><i class="dot dot-f"></i>Fett 34%</span>
+        </div>
+        <ul class="macro-detail">
+          <li><span class="n">davon gesättigt</span><span class="d"></span><span class="q">1 g</span></li>
+          <li><span class="n">davon Zucker</span><span class="d"></span><span class="q">11 g</span></li>
+          <li><span class="n">Ballaststoffe</span><span class="d"></span><span class="q">3 g</span></li>
+          <li><span class="n">Salz</span><span class="d"></span><span class="q">1,4 g</span></li>
+        </ul>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c1-v" aria-labelledby="tab-c1-v">
+        <ul class="vit-list">
+        <li><span class="n">Vitamin C</span><span class="d"></span><span class="q">14 mg</span></li>
+        <li><span class="n">Vitamin K</span><span class="d"></span><span class="q">12 µg</span></li>
+        <li><span class="n">Eisen</span><span class="d"></span><span class="q">1,5 mg</span></li>
+        <li><span class="n">Magnesium</span><span class="d"></span><span class="q">30 mg</span></li>
+        <li><span class="n">Kalium</span><span class="d"></span><span class="q">220 mg</span></li>
+        </ul>
+        <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
+      </div>
+    </div>
 
     <div class="component" data-reveal>
       <h3>Marinierte Nashi</h3>
@@ -565,6 +650,47 @@
     </div>
     <h2 data-reveal>Yakitori — Chicken Style</h2>
     <div class="csub" data-reveal>Seitan · Citrus Tare</div>
+    <div class="nutri" data-reveal>
+      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c2-m" aria-controls="panel-c2-m" aria-selected="true">Makros</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c2-v" aria-controls="panel-c2-v" aria-selected="false" tabindex="-1">Vitamine</button>
+        <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c2-m" aria-labelledby="tab-c2-m">
+        <div class="macro-grid">
+          <div class="macro"><span class="mv">330</span><span class="ml">kcal</span></div>
+          <div class="macro"><span class="mv">50 g</span><span class="ml">Protein</span></div>
+          <div class="macro"><span class="mv">3 g</span><span class="ml">Fett</span></div>
+          <div class="macro"><span class="mv">24 g</span><span class="ml">Kohlenhydrate</span></div>
+        </div>
+        <div class="energy-bar" role="img" aria-label="Energieverteilung: Protein 62 Prozent, Kohlenhydrate 30 Prozent, Fett 8 Prozent">
+          <span class="seg seg-p" style="width:62%"></span>
+          <span class="seg seg-c" style="width:30%"></span>
+          <span class="seg seg-f" style="width:8%"></span>
+        </div>
+        <div class="energy-legend" aria-hidden="true">
+          <span><i class="dot dot-p"></i>Protein 62%</span>
+          <span><i class="dot dot-c"></i>Carbs 30%</span>
+          <span><i class="dot dot-f"></i>Fett 8%</span>
+        </div>
+        <ul class="macro-detail">
+          <li><span class="n">davon gesättigt</span><span class="d"></span><span class="q">0,5 g</span></li>
+          <li><span class="n">davon Zucker</span><span class="d"></span><span class="q">9 g</span></li>
+          <li><span class="n">Ballaststoffe</span><span class="d"></span><span class="q">2 g</span></li>
+          <li><span class="n">Salz</span><span class="d"></span><span class="q">2,6 g</span></li>
+        </ul>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c2-v" aria-labelledby="tab-c2-v">
+        <ul class="vit-list">
+        <li><span class="n">Eisen</span><span class="d"></span><span class="q">4,5 mg</span></li>
+        <li><span class="n">Selen</span><span class="d"></span><span class="q">18 µg</span></li>
+        <li><span class="n">Niacin (B3)</span><span class="d"></span><span class="q">3 mg</span></li>
+        <li><span class="n">Kalium</span><span class="d"></span><span class="q">180 mg</span></li>
+        <li><span class="n">Zink</span><span class="d"></span><span class="q">1,8 mg</span></li>
+        </ul>
+        <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
+      </div>
+    </div>
 
     <div class="component" data-reveal>
       <h3>Seitan</h3>
@@ -629,6 +755,47 @@
     </div>
     <h2 data-reveal>Yakitori — Beef Style</h2>
     <div class="csub" data-reveal>Seitan · Caramel Tare · Sansho</div>
+    <div class="nutri" data-reveal>
+      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c3-m" aria-controls="panel-c3-m" aria-selected="true">Makros</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c3-v" aria-controls="panel-c3-v" aria-selected="false" tabindex="-1">Vitamine</button>
+        <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c3-m" aria-labelledby="tab-c3-m">
+        <div class="macro-grid">
+          <div class="macro"><span class="mv">350</span><span class="ml">kcal</span></div>
+          <div class="macro"><span class="mv">49 g</span><span class="ml">Protein</span></div>
+          <div class="macro"><span class="mv">3 g</span><span class="ml">Fett</span></div>
+          <div class="macro"><span class="mv">29 g</span><span class="ml">Kohlenhydrate</span></div>
+        </div>
+        <div class="energy-bar" role="img" aria-label="Energieverteilung: Protein 58 Prozent, Kohlenhydrate 34 Prozent, Fett 8 Prozent">
+          <span class="seg seg-p" style="width:58%"></span>
+          <span class="seg seg-c" style="width:34%"></span>
+          <span class="seg seg-f" style="width:8%"></span>
+        </div>
+        <div class="energy-legend" aria-hidden="true">
+          <span><i class="dot dot-p"></i>Protein 58%</span>
+          <span><i class="dot dot-c"></i>Carbs 34%</span>
+          <span><i class="dot dot-f"></i>Fett 8%</span>
+        </div>
+        <ul class="macro-detail">
+          <li><span class="n">davon gesättigt</span><span class="d"></span><span class="q">0,6 g</span></li>
+          <li><span class="n">davon Zucker</span><span class="d"></span><span class="q">13 g</span></li>
+          <li><span class="n">Ballaststoffe</span><span class="d"></span><span class="q">2 g</span></li>
+          <li><span class="n">Salz</span><span class="d"></span><span class="q">2,9 g</span></li>
+        </ul>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c3-v" aria-labelledby="tab-c3-v">
+        <ul class="vit-list">
+        <li><span class="n">Eisen</span><span class="d"></span><span class="q">5 mg</span></li>
+        <li><span class="n">Zink</span><span class="d"></span><span class="q">2,5 mg</span></li>
+        <li><span class="n">Selen</span><span class="d"></span><span class="q">18 µg</span></li>
+        <li><span class="n">Niacin (B3)</span><span class="d"></span><span class="q">3 mg</span></li>
+        <li><span class="n">Kalium</span><span class="d"></span><span class="q">210 mg</span></li>
+        </ul>
+        <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
+      </div>
+    </div>
 
     <div class="component" data-reveal>
       <h3>Seitan</h3>
@@ -689,6 +856,47 @@
     </div>
     <h2 data-reveal>Nasu Dengaku</h2>
     <div class="csub" data-reveal>Aubergine · Doppel-Miso-Glasur</div>
+    <div class="nutri" data-reveal>
+      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c4-m" aria-controls="panel-c4-m" aria-selected="true">Makros</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c4-v" aria-controls="panel-c4-v" aria-selected="false" tabindex="-1">Vitamine</button>
+        <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c4-m" aria-labelledby="tab-c4-m">
+        <div class="macro-grid">
+          <div class="macro"><span class="mv">150</span><span class="ml">kcal</span></div>
+          <div class="macro"><span class="mv">6 g</span><span class="ml">Protein</span></div>
+          <div class="macro"><span class="mv">2 g</span><span class="ml">Fett</span></div>
+          <div class="macro"><span class="mv">26 g</span><span class="ml">Kohlenhydrate</span></div>
+        </div>
+        <div class="energy-bar" role="img" aria-label="Energieverteilung: Protein 16 Prozent, Kohlenhydrate 72 Prozent, Fett 12 Prozent">
+          <span class="seg seg-p" style="width:16%"></span>
+          <span class="seg seg-c" style="width:72%"></span>
+          <span class="seg seg-f" style="width:12%"></span>
+        </div>
+        <div class="energy-legend" aria-hidden="true">
+          <span><i class="dot dot-p"></i>Protein 16%</span>
+          <span><i class="dot dot-c"></i>Carbs 72%</span>
+          <span><i class="dot dot-f"></i>Fett 12%</span>
+        </div>
+        <ul class="macro-detail">
+          <li><span class="n">davon gesättigt</span><span class="d"></span><span class="q">0,4 g</span></li>
+          <li><span class="n">davon Zucker</span><span class="d"></span><span class="q">14 g</span></li>
+          <li><span class="n">Ballaststoffe</span><span class="d"></span><span class="q">5 g</span></li>
+          <li><span class="n">Salz</span><span class="d"></span><span class="q">1,8 g</span></li>
+        </ul>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c4-v" aria-labelledby="tab-c4-v">
+        <ul class="vit-list">
+        <li><span class="n">Vitamin K</span><span class="d"></span><span class="q">18 µg</span></li>
+        <li><span class="n">Kalium</span><span class="d"></span><span class="q">300 mg</span></li>
+        <li><span class="n">Mangan</span><span class="d"></span><span class="q">0,3 mg</span></li>
+        <li><span class="n">Folat</span><span class="d"></span><span class="q">30 µg</span></li>
+        <li><span class="n">Vitamin B6</span><span class="d"></span><span class="q">0,2 mg</span></li>
+        </ul>
+        <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
+      </div>
+    </div>
 
     <div class="component" data-reveal>
       <h3>Aubergine &amp; Glasur</h3>
@@ -733,6 +941,47 @@
     </div>
     <h2 data-reveal>Mariniertes Grillgemüse</h2>
     <div class="csub" data-reveal>Kräuterseitling · Spitzpaprika · Zucchini</div>
+    <div class="nutri" data-reveal>
+      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c5-m" aria-controls="panel-c5-m" aria-selected="true">Makros</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c5-v" aria-controls="panel-c5-v" aria-selected="false" tabindex="-1">Vitamine</button>
+        <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c5-m" aria-labelledby="tab-c5-m">
+        <div class="macro-grid">
+          <div class="macro"><span class="mv">140</span><span class="ml">kcal</span></div>
+          <div class="macro"><span class="mv">5 g</span><span class="ml">Protein</span></div>
+          <div class="macro"><span class="mv">8 g</span><span class="ml">Fett</span></div>
+          <div class="macro"><span class="mv">10 g</span><span class="ml">Kohlenhydrate</span></div>
+        </div>
+        <div class="energy-bar" role="img" aria-label="Energieverteilung: Protein 15 Prozent, Kohlenhydrate 30 Prozent, Fett 55 Prozent">
+          <span class="seg seg-p" style="width:15%"></span>
+          <span class="seg seg-c" style="width:30%"></span>
+          <span class="seg seg-f" style="width:55%"></span>
+        </div>
+        <div class="energy-legend" aria-hidden="true">
+          <span><i class="dot dot-p"></i>Protein 15%</span>
+          <span><i class="dot dot-c"></i>Carbs 30%</span>
+          <span><i class="dot dot-f"></i>Fett 55%</span>
+        </div>
+        <ul class="macro-detail">
+          <li><span class="n">davon gesättigt</span><span class="d"></span><span class="q">1,2 g</span></li>
+          <li><span class="n">davon Zucker</span><span class="d"></span><span class="q">6 g</span></li>
+          <li><span class="n">Ballaststoffe</span><span class="d"></span><span class="q">4 g</span></li>
+          <li><span class="n">Salz</span><span class="d"></span><span class="q">1,4 g</span></li>
+        </ul>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c5-v" aria-labelledby="tab-c5-v">
+        <ul class="vit-list">
+        <li><span class="n">Vitamin C</span><span class="d"></span><span class="q">60 mg</span></li>
+        <li><span class="n">Niacin (B3)</span><span class="d"></span><span class="q">3 mg</span></li>
+        <li><span class="n">Kalium</span><span class="d"></span><span class="q">350 mg</span></li>
+        <li><span class="n">Vitamin D</span><span class="d"></span><span class="q">1,2 µg</span></li>
+        <li><span class="n">Folat</span><span class="d"></span><span class="q">35 µg</span></li>
+        </ul>
+        <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
+      </div>
+    </div>
 
     <div class="component" data-reveal>
       <h3>Gemüse &amp; Marinade</h3>
@@ -779,6 +1028,47 @@
     </div>
     <h2 data-reveal>Aburi Tomato Nigiri</h2>
     <div class="csub" data-reveal>Dashi-Tomate · Yuzu-Nikiri</div>
+    <div class="nutri" data-reveal>
+      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c6-m" aria-controls="panel-c6-m" aria-selected="true">Makros</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c6-v" aria-controls="panel-c6-v" aria-selected="false" tabindex="-1">Vitamine</button>
+        <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c6-m" aria-labelledby="tab-c6-m">
+        <div class="macro-grid">
+          <div class="macro"><span class="mv">380</span><span class="ml">kcal</span></div>
+          <div class="macro"><span class="mv">7 g</span><span class="ml">Protein</span></div>
+          <div class="macro"><span class="mv">1,5 g</span><span class="ml">Fett</span></div>
+          <div class="macro"><span class="mv">84 g</span><span class="ml">Kohlenhydrate</span></div>
+        </div>
+        <div class="energy-bar" role="img" aria-label="Energieverteilung: Protein 7 Prozent, Kohlenhydrate 89 Prozent, Fett 4 Prozent">
+          <span class="seg seg-p" style="width:7%"></span>
+          <span class="seg seg-c" style="width:89%"></span>
+          <span class="seg seg-f" style="width:4%"></span>
+        </div>
+        <div class="energy-legend" aria-hidden="true">
+          <span><i class="dot dot-p"></i>Protein 7%</span>
+          <span><i class="dot dot-c"></i>Carbs 89%</span>
+          <span><i class="dot dot-f"></i>Fett 4%</span>
+        </div>
+        <ul class="macro-detail">
+          <li><span class="n">davon gesättigt</span><span class="d"></span><span class="q">0,3 g</span></li>
+          <li><span class="n">davon Zucker</span><span class="d"></span><span class="q">6 g</span></li>
+          <li><span class="n">Ballaststoffe</span><span class="d"></span><span class="q">2 g</span></li>
+          <li><span class="n">Salz</span><span class="d"></span><span class="q">1,6 g</span></li>
+        </ul>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c6-v" aria-labelledby="tab-c6-v">
+        <ul class="vit-list">
+        <li><span class="n">Vitamin C</span><span class="d"></span><span class="q">12 mg</span></li>
+        <li><span class="n">Kalium</span><span class="d"></span><span class="q">230 mg</span></li>
+        <li><span class="n">Folat</span><span class="d"></span><span class="q">20 µg</span></li>
+        <li><span class="n">Niacin (B3)</span><span class="d"></span><span class="q">2 mg</span></li>
+        <li><span class="n">Magnesium</span><span class="d"></span><span class="q">20 mg</span></li>
+        </ul>
+        <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
+      </div>
+    </div>
 
     <div class="component" data-reveal>
       <h3>Sushi-Reis</h3>
@@ -847,6 +1137,47 @@
     </div>
     <h2 data-reveal>Mizuna Salat</h2>
     <div class="csub" data-reveal>Nashi · Daikon · Miso-Dressing</div>
+    <div class="nutri" data-reveal>
+      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c7-m" aria-controls="panel-c7-m" aria-selected="true">Makros</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c7-v" aria-controls="panel-c7-v" aria-selected="false" tabindex="-1">Vitamine</button>
+        <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c7-m" aria-labelledby="tab-c7-m">
+        <div class="macro-grid">
+          <div class="macro"><span class="mv">80</span><span class="ml">kcal</span></div>
+          <div class="macro"><span class="mv">2 g</span><span class="ml">Protein</span></div>
+          <div class="macro"><span class="mv">4 g</span><span class="ml">Fett</span></div>
+          <div class="macro"><span class="mv">9 g</span><span class="ml">Kohlenhydrate</span></div>
+        </div>
+        <div class="energy-bar" role="img" aria-label="Energieverteilung: Protein 10 Prozent, Kohlenhydrate 45 Prozent, Fett 45 Prozent">
+          <span class="seg seg-p" style="width:10%"></span>
+          <span class="seg seg-c" style="width:45%"></span>
+          <span class="seg seg-f" style="width:45%"></span>
+        </div>
+        <div class="energy-legend" aria-hidden="true">
+          <span><i class="dot dot-p"></i>Protein 10%</span>
+          <span><i class="dot dot-c"></i>Carbs 45%</span>
+          <span><i class="dot dot-f"></i>Fett 45%</span>
+        </div>
+        <ul class="macro-detail">
+          <li><span class="n">davon gesättigt</span><span class="d"></span><span class="q">0,6 g</span></li>
+          <li><span class="n">davon Zucker</span><span class="d"></span><span class="q">6 g</span></li>
+          <li><span class="n">Ballaststoffe</span><span class="d"></span><span class="q">2,5 g</span></li>
+          <li><span class="n">Salz</span><span class="d"></span><span class="q">0,8 g</span></li>
+        </ul>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c7-v" aria-labelledby="tab-c7-v">
+        <ul class="vit-list">
+        <li><span class="n">Vitamin K</span><span class="d"></span><span class="q">60 µg</span></li>
+        <li><span class="n">Vitamin C</span><span class="d"></span><span class="q">18 mg</span></li>
+        <li><span class="n">Folat</span><span class="d"></span><span class="q">40 µg</span></li>
+        <li><span class="n">Kalzium</span><span class="d"></span><span class="q">80 mg</span></li>
+        <li><span class="n">Kalium</span><span class="d"></span><span class="q">200 mg</span></li>
+        </ul>
+        <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
+      </div>
+    </div>
 
     <div class="component" data-reveal>
       <h3>Salat &amp; Dressing</h3>
@@ -892,6 +1223,46 @@
     </div>
     <h2 data-reveal>Yuzu Ponzu</h2>
     <div class="csub" data-reveal>Dip zu Yakitori &amp; Grillgemüse</div>
+    <div class="nutri" data-reveal>
+      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c8-m" aria-controls="panel-c8-m" aria-selected="true">Makros</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c8-v" aria-controls="panel-c8-v" aria-selected="false" tabindex="-1">Vitamine</button>
+        <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c8-m" aria-labelledby="tab-c8-m">
+        <div class="macro-grid">
+          <div class="macro"><span class="mv">20</span><span class="ml">kcal</span></div>
+          <div class="macro"><span class="mv">2 g</span><span class="ml">Protein</span></div>
+          <div class="macro"><span class="mv">0 g</span><span class="ml">Fett</span></div>
+          <div class="macro"><span class="mv">3 g</span><span class="ml">Kohlenhydrate</span></div>
+        </div>
+        <div class="energy-bar" role="img" aria-label="Energieverteilung: Protein 40 Prozent, Kohlenhydrate 60 Prozent, Fett 0 Prozent">
+          <span class="seg seg-p" style="width:40%"></span>
+          <span class="seg seg-c" style="width:60%"></span>
+          <span class="seg seg-f" style="width:0%"></span>
+        </div>
+        <div class="energy-legend" aria-hidden="true">
+          <span><i class="dot dot-p"></i>Protein 40%</span>
+          <span><i class="dot dot-c"></i>Carbs 60%</span>
+          <span><i class="dot dot-f"></i>Fett 0%</span>
+        </div>
+        <ul class="macro-detail">
+          <li><span class="n">davon gesättigt</span><span class="d"></span><span class="q">0 g</span></li>
+          <li><span class="n">davon Zucker</span><span class="d"></span><span class="q">1,5 g</span></li>
+          <li><span class="n">Ballaststoffe</span><span class="d"></span><span class="q">0 g</span></li>
+          <li><span class="n">Salz</span><span class="d"></span><span class="q">2,5 g</span></li>
+        </ul>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c8-v" aria-labelledby="tab-c8-v">
+        <ul class="vit-list">
+        <li><span class="n">Vitamin C</span><span class="d"></span><span class="q">6 mg</span></li>
+        <li><span class="n">Kalium</span><span class="d"></span><span class="q">90 mg</span></li>
+        <li><span class="n">Niacin (B3)</span><span class="d"></span><span class="q">0,6 mg</span></li>
+        <li><span class="n">Eisen</span><span class="d"></span><span class="q">0,6 mg</span></li>
+        </ul>
+        <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
+      </div>
+    </div>
 
     <div class="component" data-reveal>
       <h3>Ponzu</h3>
@@ -933,6 +1304,47 @@
     </div>
     <h2 data-reveal>Dessert</h2>
     <div class="csub" data-reveal>Kokos-Yuzu-Eis · eingelegte Nashi · schwarzer Sesam</div>
+    <div class="nutri" data-reveal>
+      <div class="nutri-tabs" role="tablist" aria-label="Nährwerte pro Portion">
+        <button type="button" class="nutri-tab" role="tab" id="tab-c9-m" aria-controls="panel-c9-m" aria-selected="true">Makros</button>
+        <button type="button" class="nutri-tab" role="tab" id="tab-c9-v" aria-controls="panel-c9-v" aria-selected="false" tabindex="-1">Vitamine</button>
+        <span class="nutri-per">&#8776; pro Portion</span>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c9-m" aria-labelledby="tab-c9-m">
+        <div class="macro-grid">
+          <div class="macro"><span class="mv">300</span><span class="ml">kcal</span></div>
+          <div class="macro"><span class="mv">3 g</span><span class="ml">Protein</span></div>
+          <div class="macro"><span class="mv">18 g</span><span class="ml">Fett</span></div>
+          <div class="macro"><span class="mv">30 g</span><span class="ml">Kohlenhydrate</span></div>
+        </div>
+        <div class="energy-bar" role="img" aria-label="Energieverteilung: Protein 4 Prozent, Kohlenhydrate 41 Prozent, Fett 55 Prozent">
+          <span class="seg seg-p" style="width:4%"></span>
+          <span class="seg seg-c" style="width:41%"></span>
+          <span class="seg seg-f" style="width:55%"></span>
+        </div>
+        <div class="energy-legend" aria-hidden="true">
+          <span><i class="dot dot-p"></i>Protein 4%</span>
+          <span><i class="dot dot-c"></i>Carbs 41%</span>
+          <span><i class="dot dot-f"></i>Fett 55%</span>
+        </div>
+        <ul class="macro-detail">
+          <li><span class="n">davon gesättigt</span><span class="d"></span><span class="q">15 g</span></li>
+          <li><span class="n">davon Zucker</span><span class="d"></span><span class="q">24 g</span></li>
+          <li><span class="n">Ballaststoffe</span><span class="d"></span><span class="q">1,5 g</span></li>
+          <li><span class="n">Salz</span><span class="d"></span><span class="q">0,1 g</span></li>
+        </ul>
+      </div>
+      <div class="nutri-panel" role="tabpanel" id="panel-c9-v" aria-labelledby="tab-c9-v">
+        <ul class="vit-list">
+        <li><span class="n">Eisen</span><span class="d"></span><span class="q">1,8 mg</span></li>
+        <li><span class="n">Mangan</span><span class="d"></span><span class="q">0,4 mg</span></li>
+        <li><span class="n">Kupfer</span><span class="d"></span><span class="q">0,2 mg</span></li>
+        <li><span class="n">Magnesium</span><span class="d"></span><span class="q">25 mg</span></li>
+        <li><span class="n">Kalzium</span><span class="d"></span><span class="q">40 mg</span></li>
+        </ul>
+        <p class="nutri-note">N&auml;herungswerte je Portion (1/10 des Rezepts), gesch&auml;tzt anhand der Zutaten.</p>
+      </div>
+    </div>
 
     <div class="component" data-reveal>
       <h3>Kokos-Yuzu-Eis</h3>
@@ -1028,6 +1440,37 @@
     if(mq.addEventListener){ mq.addEventListener("change", onChange); }
     else if(mq.addListener){ mq.addListener(onChange); }
   }
+})();
+</script>
+
+<script>
+/* nutrition tabs — läuft unabhängig von GSAP, mit Tastatursteuerung */
+(function(){
+  var groups = document.querySelectorAll(".nutri");
+  Array.prototype.forEach.call(groups, function(group){
+    var tabs = Array.prototype.slice.call(group.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute("aria-controls")); });
+    function select(i){
+      tabs.forEach(function(t, j){
+        var on = j === i;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+        if(panels[j]){ panels[j].hidden = !on; }
+      });
+    }
+    tabs.forEach(function(t, i){
+      t.addEventListener("click", function(){ select(i); });
+      t.addEventListener("keydown", function(e){
+        var idx = null;
+        if(e.key === "ArrowRight" || e.key === "ArrowDown") idx = (i + 1) % tabs.length;
+        else if(e.key === "ArrowLeft" || e.key === "ArrowUp") idx = (i - 1 + tabs.length) % tabs.length;
+        else if(e.key === "Home") idx = 0;
+        else if(e.key === "End") idx = tabs.length - 1;
+        if(idx !== null){ e.preventDefault(); select(idx); tabs[idx].focus(); }
+      });
+    });
+    select(0);
+  });
 })();
 </script>
 

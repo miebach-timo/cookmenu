@@ -8,6 +8,7 @@ Ein japanisch inspiriertes Dinner in neun Gängen für zehn Personen — als ani
 - **Scroll-Reveals**: Überschriften, Zutatenlisten und Zubereitungsschritte erscheinen kaskadierend beim Scrollen (GSAP ScrollTrigger)
 - **Parallax-Wasserzeichen**: Japanische Zahlzeichen (壱・弐・参 …) wandern hinter jedem Gang
 - **Fortschritts-Ensō**: Kreis oben rechts zeigt den Lesefortschritt in Prozent, Klick scrollt sanft nach oben
+- **Nährwert-Tabs**: Pro Gang ein Tab-Menü („Makros" / „Vitamine") mit den Näherungswerten je Portion (1/10 des Rezepts) — kcal, Protein/Fett/Kohlenhydrate, Energieverteilungs-Balken, Detailwerte und Mikronährstoffe; per Tastatur bedienbar (Pfeiltasten) und ohne JavaScript vollständig lesbar
 - **Mobile First**: Basis-Layout für kleine Screens, Desktop-Erweiterungen per `min-width`-Queries
 - **Mobile Navigation**: Bottom-Bar mit aktuellem Gang und Vollbild-Sprungmenü (献立); auf Desktop stattdessen seitliche Punkte-Rail mit aktiven Zuständen und Smooth Scroll
 - **Barrierefrei**: Respektiert `prefers-reduced-motion`; ohne JavaScript bleibt die Seite vollständig lesbar
