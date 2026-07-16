@@ -378,18 +378,6 @@
   /* ---------- dish reveal animation (Gang 01) ---------- */
   #c1{overflow:visible}
   #c1 .watermark{display:none}
-  .dish-anim{position:relative;display:flex;align-items:center;justify-content:center;
-    height:86vh;height:86svh;margin:0 0 6vh}
-  .dish-anim-frames{position:relative;width:min(680px,92vw);aspect-ratio:1112 / 834;margin:0 auto}
-  .dish-anim-frames img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
-    opacity:0;will-change:opacity;-webkit-user-select:none;user-select:none}
-  .dish-anim-frames img:last-child{opacity:1} /* Fallback ohne JS / reduced-motion: fertiger Teller */
-  .dish-anim-mark{position:absolute;top:1%;left:0;font-family:var(--serif);
-    font-size:13px;letter-spacing:.22em;color:var(--muted)}
-  .dish-anim-hint{position:absolute;bottom:1%;left:50%;transform:translateX(-50%);
-    font-family:var(--sans);font-size:9px;letter-spacing:.34em;text-transform:uppercase;
-    color:var(--muted);transition:opacity .3s}
-  @media(min-width:641px){.dish-anim{margin-bottom:8vh}}
 
   .component{margin:0 0 30px}
   .component h3{font-family:var(--sans);font-weight:700;font-size:12.5px;
@@ -551,21 +539,6 @@
 <section class="course" id="c1">
   <div class="watermark" data-watermark>壱</div>
   <div class="wrap">
-    <div class="dish-anim" id="dishAnim">
-      <div class="dish-anim-frames" role="img" aria-label="Das Amuse wird angerichtet: marinierte Nashi, Shiro-Miso-Creme, schwarzer Sesam und Kresse fügen sich auf dem Teller zusammen.">
-        <img src="assets/anim/amuse/amuse-1.webp" alt="" decoding="async" draggable="false">
-        <img src="assets/anim/amuse/amuse-2.webp" alt="" decoding="async" draggable="false">
-        <img src="assets/anim/amuse/amuse-3.webp" alt="" decoding="async" draggable="false">
-        <img src="assets/anim/amuse/amuse-4.webp" alt="" decoding="async" draggable="false">
-        <img src="assets/anim/amuse/amuse-5.webp" alt="" decoding="async" draggable="false">
-        <img src="assets/anim/amuse/amuse-6.webp" alt="" decoding="async" draggable="false">
-        <img src="assets/anim/amuse/amuse-7.webp" alt="" decoding="async" draggable="false">
-        <img src="assets/anim/amuse/amuse-8.webp" alt="" decoding="async" draggable="false">
-        <img src="assets/anim/amuse/amuse-9.webp" alt="" decoding="async" draggable="false">
-      </div>
-      <span class="dish-anim-mark">壱 · Gang 01</span>
-      <span class="dish-anim-hint" aria-hidden="true">scroll</span>
-    </div>
     <div class="course-head" data-reveal>
       <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
       <span class="cno">Gang 01</span>
@@ -1669,35 +1642,6 @@
       .to(mDef,  {opacity: 0, filter: "blur(10px)", duration: .9, ease: "power2.in"})
       .to(mWord, {opacity: 1, filter: "blur(0px)",  duration: 1.1, ease: "power2.out"}, "-=.55");
     intro.eventCallback("onComplete", function(){ morph.play(); });
-  }
-
-  /* ---------- Gang 01: Frame-Scrub Anrichte-Animation ---------- */
-  var dish = document.getElementById("dishAnim");
-  if(dish){
-    var frames = dish.querySelectorAll(".dish-anim-frames img");
-    var hint = dish.querySelector(".dish-anim-hint");
-    var N = frames.length;
-    var renderFrame = function(f){
-      var base = Math.floor(f);
-      if(base > N - 1) base = N - 1;
-      var frac = f - base;
-      for(var i = 0; i < N; i++){
-        frames[i].style.opacity = (i === base) ? 1 : (i === base + 1 ? frac : 0);
-      }
-      if(hint){ hint.style.opacity = f > 0.15 ? 0 : (1 - f / 0.15); }
-    };
-    renderFrame(0);
-    var stf = {f: 0};
-    gsap.to(stf, {
-      f: N - 1, ease: "none",
-      scrollTrigger: {
-        trigger: dish, start: "top top",
-        end: function(){ return "+=" + Math.round(window.innerHeight * 1.1); },
-        pin: dish, pinSpacing: true, scrub: 0.4, anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: function(){ renderFrame(stf.f); }
-      }
-    });
   }
 
   /* hero fades slightly as you leave */
