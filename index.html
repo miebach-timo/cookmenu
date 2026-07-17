@@ -332,6 +332,18 @@
   .course .csub{font-family:var(--serif);font-style:italic;color:var(--muted);
     font-size:16px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:30px}
 
+  /* ---------- Gang 01: Gericht-Foto neben dem Kopf ---------- */
+  .dish-intro{display:flex;flex-direction:column;gap:24px}
+  .dish-photo{margin:0;border-radius:6px;overflow:hidden;
+    box-shadow:0 26px 60px -28px rgba(0,0,0,.5)}
+  .dish-photo img{display:block;width:100%;height:auto}
+  @media(min-width:901px){
+    .dish-intro{flex-direction:row;align-items:center;gap:46px}
+    .dish-intro-text{flex:1 1 46%;min-width:0}
+    .dish-photo{flex:1 1 54%}
+    .dish-intro-text .csub{margin-bottom:0} /* Trennlinie unter dem Titel reicht */
+  }
+
   /* ---------- dish tabs (recipe / macros / vitamins) ---------- */
   .nutri{margin:4px 0 30px}
   .nutri-tabs{display:flex;align-items:center;gap:22px;flex-wrap:wrap;
@@ -539,12 +551,20 @@
 <section class="course" id="c1">
   <div class="watermark" data-watermark>壱</div>
   <div class="wrap">
-    <div class="course-head" data-reveal>
-      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-      <span class="cno">Gang 01</span>
+    <div class="dish-intro">
+      <div class="dish-intro-text">
+        <div class="course-head" data-reveal>
+          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+          <span class="cno">Gang 01</span>
+        </div>
+        <h2 data-reveal>Amuse</h2>
+        <div class="csub" data-reveal>Marinierte Nashi · Shiro Miso · Yuzu</div>
+      </div>
+      <figure class="dish-photo" data-reveal-photo>
+        <img src="assets/amuse.png" width="1536" height="1024" decoding="async" loading="lazy"
+          alt="Amuse — marinierte Nashi mit Shiro-Miso-Creme, schwarzem Sesam und Kresse">
+      </figure>
     </div>
-    <h2 data-reveal>Amuse</h2>
-    <div class="csub" data-reveal>Marinierte Nashi · Shiro Miso · Yuzu</div>
     <div class="nutri" data-reveal>
       <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
         <button type="button" class="nutri-tab" role="tab" id="tab-c1-r" aria-controls="panel-c1-r" aria-selected="true">Rezept</button>
@@ -1655,6 +1675,15 @@
     gsap.from(el, {
       opacity: 0, y: 30, duration: 1, ease: "power3.out",
       scrollTrigger: {trigger: el, start: "top 88%"}
+    });
+  });
+
+  /* Gericht-Foto: wischt von unten hoch + leichter Zoom */
+  gsap.utils.toArray("[data-reveal-photo]").forEach(function(el){
+    gsap.from(el, {
+      opacity: 0, scale: 1.06, clipPath: "inset(100% 0 0 0)",
+      duration: 1.3, ease: "power3.out",
+      scrollTrigger: {trigger: el, start: "top 85%"}
     });
   });
   gsap.utils.toArray("[data-rule]").forEach(function(el){
