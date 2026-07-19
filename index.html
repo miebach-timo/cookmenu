@@ -226,21 +226,23 @@
   .hero .enso-wrap{position:relative;width:min(300px,82vw);aspect-ratio:1}
   @media(min-width:641px){.hero .enso-wrap{width:min(430px,78vw)}}
   .hero .enso{position:absolute;inset:0;width:100%;height:100%}
-  /* Liquid Glass: refraktive Glas-Ebene (backdrop-filter) in Enso-Form + Linie als Rand */
-  .hero .enso path{fill:none;stroke:rgba(70,84,112,.22);stroke-width:3;stroke-linecap:round;
-    filter:drop-shadow(0 0 1.5px rgba(255,255,255,.4))}
-  :root[data-theme="dark"] .hero .enso path{stroke:rgba(255,255,255,.20);
-    filter:drop-shadow(0 0 2px rgba(255,255,255,.35))}
-  .hero .enso-glass{position:absolute;inset:0;pointer-events:none;border-radius:50%;
-    background:rgba(255,255,255,.05);
-    -webkit-backdrop-filter:blur(5px) saturate(1.5) brightness(1.05);
-    backdrop-filter:blur(5px) saturate(1.5) brightness(1.05);
-    -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Cpath%20d='M50%208%20C%2026%208,%208%2027,%208%2050%20C%208%2073,%2027%2092,%2050%2092%20C%2071%2092,%2090%2075,%2091%2054'%20fill='none'%20stroke='%23000'%20stroke-width='3.4'%20stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
-    mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Cpath%20d='M50%208%20C%2026%208,%208%2027,%208%2050%20C%208%2073,%2027%2092,%2050%2092%20C%2071%2092,%2090%2075,%2091%2054'%20fill='none'%20stroke='%23000'%20stroke-width='3.4'%20stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  /* Liquid Glass (macOS): Refraktion via SVG-Displacement + Tint + Shine */
+  .hero .enso path{fill:none;stroke:rgba(255,255,255,.10);stroke-width:5;stroke-linecap:round;
+    filter:
+      drop-shadow(-.6px -.6px .2px rgba(255,255,255,.95))
+      drop-shadow(.9px 1.1px .8px rgba(10,16,30,.32))}
+  :root[data-theme="dark"] .hero .enso path{stroke:rgba(255,255,255,.08);
+    filter:
+      drop-shadow(-.6px -.6px .2px rgba(255,255,255,.75))
+      drop-shadow(.9px 1.1px 1px rgba(0,0,0,.6))}
+  .hero .enso-glass{position:absolute;inset:0;pointer-events:none;
+    background:rgba(255,255,255,.14);
+    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+    filter:url(#glass-distortion);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Cpath%20d='M50%208%20C%2026%208,%208%2027,%208%2050%20C%208%2073,%2027%2092,%2050%2092%20C%2071%2092,%2090%2075,%2091%2054'%20fill='none'%20stroke='%23000'%20stroke-width='5'%20stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Cpath%20d='M50%208%20C%2026%208,%208%2027,%208%2050%20C%208%2073,%2027%2092,%2050%2092%20C%2071%2092,%2090%2075,%2091%2054'%20fill='none'%20stroke='%23000'%20stroke-width='5'%20stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
     opacity:0;animation:ensoGlassIn .9s ease 2s forwards}
-  :root[data-theme="dark"] .hero .enso-glass{background:rgba(255,255,255,.07);
-    -webkit-backdrop-filter:blur(5px) saturate(1.4) brightness(1.18);
-    backdrop-filter:blur(5px) saturate(1.4) brightness(1.18)}
+  :root[data-theme="dark"] .hero .enso-glass{background:rgba(255,255,255,.07)}
   @keyframes ensoGlassIn{to{opacity:1}}
   @media(prefers-reduced-motion:reduce){.hero .enso-glass{animation:none;opacity:1}}
   .hero .kanji{
@@ -542,6 +544,14 @@
 </div>
 
 <!-- ============ HERO ============ -->
+<svg class="glass-defs" aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+  <filter id="glass-distortion" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves="2" seed="92" result="noise"/>
+    <feGaussianBlur in="noise" stdDeviation="1.4" result="blurred"/>
+    <feDisplacementMap in="SourceGraphic" in2="blurred" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
 <section class="hero" id="hero">
   <div class="aurora" aria-hidden="true"></div>
   <div class="enso-wrap">
