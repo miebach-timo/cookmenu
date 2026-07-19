@@ -239,6 +239,7 @@
     margin-top:30px;width:100%;max-width:440px;
   }
   .hero .morph > *{grid-area:1/1}
+  .hero .morph .u{display:inline-block;will-change:transform,opacity}
   .hero .morph .word{
     font-family:var(--sans);font-size:12px;letter-spacing:.42em;
     text-transform:uppercase;color:var(--indigo);font-weight:500;padding-left:.42em;
@@ -544,8 +545,6 @@
     <span class="word" id="morphWord">Kuchisabishii</span>
     <span class="def" id="morphDef">„Wenn der Mund sich einsam fühlt — die leise Lust zu essen, ganz ohne Hunger.“</span>
   </div>
-  <div class="sub" data-intro>Japanese Inspired Dinner</div>
-  <div class="rule" data-intro-rule></div>
   <div class="serve" data-intro>Menü &middot; 8 Personen</div>
   <div class="scroll-cue" id="scrollCue">
     <span>Scroll</span>
@@ -1675,25 +1674,52 @@
     .to(heroPath, {strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut"}, .2)
     .from(kanjiSpans, {opacity: 0, y: 26, filter: "blur(6px)", stagger: .14, duration: 1}, "-=1.1")
     .from("[data-intro]", {opacity: 0, y: 18, stagger: .12, duration: .9}, "-=.5")
-    .from("[data-intro-rule]", {scaleX: 0, duration: .8, ease: "power2.inOut"}, "-=.8")
     .from("#scrollCue", {opacity: 0, duration: .8, clearProps: "opacity"}, "-=.3");
   gsap.to("#scrollCue .stem", {scaleY: .35, transformOrigin: "top", repeat: -1, yoyo: true, duration: 1.1, ease: "sine.inOut"});
 
-  /* ---------- looping blur morph: word <-> German definition ---------- */
+  /* ---------- Wort & Definition: fließender Stagger-Loop ---------- */
   var mWord = document.getElementById("morphWord");
   var mDef = document.getElementById("morphDef");
   if(mWord && mDef){
-    gsap.set(mWord, {opacity: 1, filter: "blur(0px)"});
-    gsap.set(mDef, {opacity: 0, filter: "blur(10px)"});
-    var morph = gsap.timeline({repeat: -1, paused: true});
-    morph
-      .to({}, {duration: 2.6})                                                  /* Wort halten */
-      .to(mWord, {opacity: 0, filter: "blur(10px)", duration: .9, ease: "power2.in"})
-      .to(mDef,  {opacity: 1, filter: "blur(0px)",  duration: 1.1, ease: "power2.out"}, "-=.55")
-      .to({}, {duration: 3.6})                                                  /* Definition halten */
-      .to(mDef,  {opacity: 0, filter: "blur(10px)", duration: .9, ease: "power2.in"})
-      .to(mWord, {opacity: 1, filter: "blur(0px)",  duration: 1.1, ease: "power2.out"}, "-=.55");
-    intro.eventCallback("onComplete", function(){ morph.play(); });
+    /* Text in animierbare Einheiten aufsplitten */
+    function splitUnits(el, byWord){
+      var raw = el.textContent;
+      el.textContent = "";
+      var parts = byWord ? raw.trim().split(/\s+/) : Array.prototype.slice.call(raw);
+      var units = [];
+      parts.forEach(function(p, i){
+        var s = document.createElement("span");
+        s.className = "u";
+        s.textContent = (p === " ") ? " " : p;
+        el.appendChild(s);
+        units.push(s);
+        if(byWord && i < parts.length - 1){ el.appendChild(document.createTextNode(" ")); }
+      });
+      return units;
+    }
+    var wChars = splitUnits(mWord, false);
+    var dWords = splitUnits(mDef, true);
+    gsap.set([mWord, mDef], {opacity: 1});
+
+    if(reduced){
+      gsap.set(wChars, {opacity: 1}); gsap.set(dWords, {opacity: 0});
+    } else {
+      gsap.set(dWords, {opacity: 0});
+      gsap.set(wChars, {opacity: 0, yPercent: 120, filter: "blur(8px)"});
+      var morph = gsap.timeline({repeat: -1, paused: true});
+      morph
+        .fromTo(wChars, {opacity: 0, yPercent: 120, filter: "blur(8px)"},
+          {opacity: 1, yPercent: 0, filter: "blur(0px)", stagger: .05, duration: .7, ease: "power3.out"})
+        .to({}, {duration: 2})
+        .to(wChars, {opacity: 0, yPercent: -110, filter: "blur(8px)",
+          stagger: {each: .03, from: "end"}, duration: .5, ease: "power2.in"})
+        .fromTo(dWords, {opacity: 0, yPercent: 70, filter: "blur(8px)"},
+          {opacity: 1, yPercent: 0, filter: "blur(0px)", stagger: .06, duration: .7, ease: "power3.out"}, "-=.15")
+        .to({}, {duration: 3})
+        .to(dWords, {opacity: 0, yPercent: -60, filter: "blur(8px)",
+          stagger: {each: .04}, duration: .5, ease: "power2.in"});
+      intro.eventCallback("onComplete", function(){ morph.play(); });
+    }
   }
 
   /* hero fades slightly as you leave */
