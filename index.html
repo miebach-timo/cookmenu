@@ -227,11 +227,10 @@
   .hero .hero-bg{position:absolute;inset:0;z-index:0;
     background:url("assets/hero-bg.png") center/cover no-repeat;
     will-change:transform,opacity;transform-origin:top center}
-  .hero .enso-wrap{position:relative;width:min(300px,82vw);aspect-ratio:1}
-  @media(min-width:641px){.hero .enso-wrap{width:min(430px,78vw)}}
+  .hero .enso-wrap{position:relative;max-width:100%}
   .hero .kanji{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    font-family:var(--serif);font-size:clamp(58px,13vw,104px);letter-spacing:.08em;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:clamp(72px,17vw,136px);letter-spacing:.06em;
     color:var(--hero-ink);line-height:1;
   }
   .hero .kanji span{display:inline-block}
@@ -253,15 +252,15 @@
   .hero .sub{font-family:var(--serif);font-style:italic;font-size:17px;
     color:var(--muted);margin-top:34px}
   @media(min-width:641px){
-    .hero .morph{margin-top:38px;max-width:520px}
+    .hero .morph{margin-top:40px;max-width:520px}
     .hero .morph .word{font-size:14px;letter-spacing:.5em;padding-left:.5em}
     .hero .morph .def{font-size:17px}
     .hero .sub{font-size:19px;margin-top:44px}
   }
   .hero .rule{width:54px;height:1px;background:var(--indigo);margin:28px auto;transform-origin:center}
   .hero .serve{font-family:var(--sans);font-size:11px;letter-spacing:.3em;
-    text-transform:uppercase;color:var(--hero-ink);margin-top:38px}
-  @media(min-width:641px){.hero .serve{margin-top:48px}}
+    text-transform:uppercase;color:var(--hero-ink);margin-top:20px}
+  @media(min-width:641px){.hero .serve{margin-top:24px}}
 
   /* ---------- Aurora (CSS-Port des Aceternity-Effekts, warme Palette) ---------- */
   .hero{overflow:clip}
