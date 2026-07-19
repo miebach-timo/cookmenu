@@ -1687,6 +1687,7 @@
     gsap.set(wChars, reduced ? {opacity: 1} : {opacity: 0, yPercent: 120, filter: "blur(8px)"});
   }
   var intro = gsap.timeline({defaults:{ease:"power3.out"}});
+  intro.timeScale(1.3);
   intro.from(kanjiSpans, {opacity: 0, y: 26, filter: "blur(6px)", stagger: .14, duration: 1}, .2);
   if(mWord && mDef && !reduced){
     intro.to(wChars, {opacity: 1, yPercent: 0, filter: "blur(0px)",
@@ -1699,6 +1700,7 @@
   /* Loop: Wort <-> Definition (startet mit sichtbarem Wort) */
   if(mWord && mDef && !reduced){
     var morph = gsap.timeline({repeat: -1, paused: true});
+    morph.timeScale(1.3);
     morph
       .to({}, {duration: 2})
       .to(wChars, {opacity: 0, yPercent: -110, filter: "blur(8px)",
