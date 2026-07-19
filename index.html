@@ -285,16 +285,16 @@
   @keyframes aurora{from{background-position:50% 50%,50% 50%}to{background-position:350% 50%,350% 50%}}
   @media(prefers-reduced-motion:reduce){.hero .aurora::after{animation:none}}
   .scroll-cue{
-    position:absolute;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
+    position:absolute;bottom:34vh;left:50%;transform:translateX(-50%);
     display:flex;flex-direction:column;align-items:center;gap:8px;
     font-family:var(--sans);font-size:9px;letter-spacing:.35em;
-    text-transform:uppercase;color:var(--muted);
+    text-transform:uppercase;color:var(--hero-ink);
     pointer-events:none;transition:opacity .4s ease;
   }
   .scroll-cue.hide{opacity:0}
-  .scroll-cue .stem{width:1px;height:30px;background:var(--muted);transform-origin:top}
+  .scroll-cue .stem{width:1px;height:30px;background:var(--hero-ink);transform-origin:top;opacity:.75}
   @media(min-width:641px){
-    .scroll-cue{bottom:calc(30px + env(safe-area-inset-bottom));gap:10px}
+    .scroll-cue{bottom:36vh;gap:10px}
     .scroll-cue .stem{height:44px}
   }
 
@@ -444,8 +444,9 @@
     position:absolute;left:0;top:0;font-family:var(--serif);color:var(--yuzu);
     font-size:14px;width:20px}
 
-  .note{font-size:12.5px;color:var(--muted);margin-top:12px}
+  .note{font-size:12.5px;color:var(--muted);margin:20px 0}
   .note::before{content:"Info: ";color:var(--ink);font-weight:600}
+  .component.finish{padding-top:18px}
   .finish{font-size:13px;color:var(--ink)}
   .finish .label{margin-bottom:6px}
   .finish span{color:var(--muted)}
@@ -1693,9 +1694,9 @@
     intro.to(wChars, {opacity: 1, yPercent: 0, filter: "blur(0px)",
       stagger: .05, duration: .7, ease: "power3.out"}, "-=.35");
   }
-  intro.from(".hero .serve", {opacity: 0, y: 18, duration: .9}, "-=.15")
+  intro.from(".hero .serve", {opacity: 0, duration: .9}, "-=.15")
        .from("#scrollCue", {opacity: 0, duration: .8, clearProps: "opacity"}, "-=.3");
-  gsap.to("#scrollCue .stem", {scaleY: .35, transformOrigin: "top", repeat: -1, yoyo: true, duration: 1.1, ease: "sine.inOut"});
+  gsap.to("#scrollCue .stem", {scaleY: .72, transformOrigin: "top", repeat: -1, yoyo: true, duration: 1.8, ease: "sine.inOut"});
 
   /* Loop: Wort <-> Definition (startet mit sichtbarem Wort) */
   if(mWord && mDef && !reduced){
