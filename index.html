@@ -328,6 +328,13 @@
   .course-head .mark path{fill:none;stroke:var(--indigo);stroke-width:7;stroke-linecap:round}
   .course-head .cno{font-family:var(--sans);font-size:12px;letter-spacing:.32em;
     color:var(--yuzu);font-weight:600}
+  .diet{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    font-weight:600;padding:2px 8px;border-radius:100px;border:1px solid currentColor;
+    line-height:1.6;white-space:nowrap}
+  .diet.vegan{color:#5c8a3a}
+  .diet.veg{color:#b07d2a}
+  .diet.meat{color:#a24b3a}
+  h3 .diet{margin-left:8px;vertical-align:middle}
   .course h2{font-size:clamp(26px,5vw,34px);margin:2px 0 4px;letter-spacing:.01em}
   .course .csub{font-family:var(--serif);font-style:italic;color:var(--muted);
     font-size:16px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:30px}
@@ -536,7 +543,7 @@
       <li data-reveal><a href="#c4"><span class="mno">03</span><span class="mname">Nasu Dengaku</span><span class="mdesc">Aubergine · Doppel-Miso-Glasur</span></a></li>
       <li data-reveal><a href="#c5"><span class="mno">04</span><span class="mname">Mariniertes Grillgemüse</span><span class="mdesc">Kräuterseitling · Paprika · Zucchini</span></a></li>
       <li data-reveal><a href="#c6"><span class="mno">05</span><span class="mname">Aburi Tomato Nigiri</span><span class="mdesc">Dashi-Tomate · Yuzu-Nikiri</span></a></li>
-      <li data-reveal><a href="#c7"><span class="mno">06</span><span class="mname">Avocado Salat</span><span class="mdesc">Avocado · Gurke · Sesam-Dressing</span></a></li>
+      <li data-reveal><a href="#c7"><span class="mno">06</span><span class="mname">Avocado Salat</span><span class="mdesc">Avocado · Sesam-Dressing</span></a></li>
       <li data-reveal><a href="#c8"><span class="mno">07</span><span class="mname">Yuzu Ponzu</span><span class="mdesc">Dip zu Yakitori &amp; Grillgemüse</span></a></li>
       <li data-reveal><a href="#c9"><span class="mno">08</span><span class="mname">Dessert</span><span class="mdesc">Kokos-Yuzu-Eis · Zitrone · schwarzer Sesam</span></a></li>
     </ol>
@@ -552,6 +559,7 @@
         <div class="course-head" data-reveal>
           <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
           <span class="cno">Gang 01</span>
+          <span class="diet vegan">Vegan</span>
         </div>
         <h2 data-reveal>Amuse</h2>
         <div class="csub" data-reveal>Marinierte Nashi · Miso-Creme · Yuzu-Gel</div>
@@ -697,6 +705,8 @@
     <div class="course-head" data-reveal>
       <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
       <span class="cno">Gang 02</span>
+      <span class="diet vegan">Vegan</span>
+      <span class="diet meat">Fleisch</span>
     </div>
     <h2 data-reveal>Yakitori-Spieße</h2>
     <div class="csub" data-reveal>Hähnchen &amp; Wonderchunks · Citrus Tare</div>
@@ -709,22 +719,41 @@
       </div>
       <div class="nutri-panel nutri-recipe" role="tabpanel" id="panel-c2-r" aria-labelledby="tab-c2-r">
         <div class="component" data-reveal>
-          <h3>Spieße</h3>
+          <h3>Hähnchen-Spieße <span class="diet meat">Fleisch</span></h3>
           <div class="grid">
             <div>
               <span class="label">Zutaten</span>
               <ul class="ing">
                 <li><span class="n">Hähnchenschenkelfilet</span><span class="d"></span><span class="q">1,2 kg</span></li>
-                <li><span class="n">Wonderchunks</span><span class="d"></span><span class="q">400 g</span></li>
                 <li><span class="n">Holzspieße</span><span class="d"></span><span class="q">1 Pkg.</span></li>
               </ul>
             </div>
             <div>
               <span class="label">Zubereitung</span>
               <ol class="steps">
-                <li>Hähnchen und Wonderchunks in gleichmäßige Würfel schneiden.</li>
-                <li>Abwechselnd auf Spieße stecken.</li>
+                <li>Hähnchen in gleichmäßige Würfel schneiden.</li>
+                <li>Auf Spieße stecken.</li>
                 <li>Über Binchotan oder auf dem Grill garen, dabei mehrfach glasieren.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="component" data-reveal>
+          <h3>Gemüse-Spieße <span class="diet vegan">Vegan</span></h3>
+          <div class="grid">
+            <div>
+              <span class="label">Zutaten</span>
+              <ul class="ing">
+                <li><span class="n">Wonderchunks</span><span class="d"></span><span class="q">600 g</span></li>
+                <li><span class="n">Holzspieße</span><span class="d"></span><span class="q">1 Pkg.</span></li>
+              </ul>
+            </div>
+            <div>
+              <span class="label">Zubereitung</span>
+              <ol class="steps">
+                <li>Wonderchunks auf separate Spieße stecken.</li>
+                <li>Auf dem Grill garen, dabei mehrfach glasieren.</li>
               </ol>
             </div>
           </div>
@@ -804,12 +833,21 @@
 <section class="course" id="c4">
   <div class="watermark" data-watermark>参</div>
   <div class="wrap">
-    <div class="course-head" data-reveal>
-      <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-      <span class="cno">Gang 03</span>
+    <div class="dish-intro">
+      <div class="dish-intro-text">
+        <div class="course-head" data-reveal>
+          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
+          <span class="cno">Gang 03</span>
+          <span class="diet vegan">Vegan</span>
+        </div>
+        <h2 data-reveal>Nasu Dengaku</h2>
+        <div class="csub" data-reveal>Aubergine · Doppel-Miso-Glasur</div>
+      </div>
+      <figure class="dish-photo" data-reveal-photo>
+        <img src="assets/nasu.png" width="896" height="1200" decoding="async" loading="lazy"
+          alt="Nasu Dengaku — glasierte Aubergine mit Doppel-Miso-Glasur, Sesam und Frühlingszwiebel">
+      </figure>
     </div>
-    <h2 data-reveal>Nasu Dengaku</h2>
-    <div class="csub" data-reveal>Aubergine · Doppel-Miso-Glasur</div>
     <div class="nutri" data-reveal>
       <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
         <button type="button" class="nutri-tab" role="tab" id="tab-c4-r" aria-controls="panel-c4-r" aria-selected="true">Rezept</button>
@@ -894,6 +932,7 @@
     <div class="course-head" data-reveal>
       <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
       <span class="cno">Gang 04</span>
+      <span class="diet vegan">Vegan</span>
     </div>
     <h2 data-reveal>Mariniertes Grillgemüse</h2>
     <div class="csub" data-reveal>Kräuterseitling · Spitzpaprika · Zucchini</div>
@@ -983,6 +1022,7 @@
     <div class="course-head" data-reveal>
       <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
       <span class="cno">Gang 05</span>
+      <span class="diet veg">Vegetarisch</span>
     </div>
     <h2 data-reveal>Aburi Tomato Nigiri</h2>
     <div class="csub" data-reveal>Dashi-Tomate · Yuzu-Nikiri</div>
@@ -1102,9 +1142,10 @@
     <div class="course-head" data-reveal>
       <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
       <span class="cno">Gang 06</span>
+      <span class="diet vegan">Vegan</span>
     </div>
     <h2 data-reveal>Avocado Salat</h2>
-    <div class="csub" data-reveal>Avocado · Gurke · Sesam-Dressing</div>
+    <div class="csub" data-reveal>Avocado · Sesam-Dressing</div>
     <div class="nutri" data-reveal>
       <div class="nutri-tabs" role="tablist" aria-label="Gericht — Rezept und Nährwerte">
         <button type="button" class="nutri-tab" role="tab" id="tab-c7-r" aria-controls="panel-c7-r" aria-selected="true">Rezept</button>
@@ -1121,20 +1162,18 @@
               <ul class="ing">
                 <li><span class="n">Avocado (reif)</span><span class="d"></span><span class="q">5 Stück</span></li>
                 <li><span class="n">Blattsalat / Mizuna</span><span class="d"></span><span class="q">200 g</span></li>
-                <li><span class="n">Gurke</span><span class="d"></span><span class="q">1 Stück</span></li>
                 <li><span class="n">Sesam-Paste (Neri Goma)</span><span class="d"></span><span class="q">40 g</span></li>
                 <li><span class="n">Helle Sojasauce</span><span class="d"></span><span class="q">40 ml</span></li>
                 <li><span class="n">Reisessig</span><span class="d"></span><span class="q">40 ml</span></li>
                 <li><span class="n">Mirin</span><span class="d"></span><span class="q">30 ml</span></li>
                 <li><span class="n">Geröstetes Sesamöl</span><span class="d"></span><span class="q">20 ml</span></li>
                 <li><span class="n">Zucker</span><span class="d"></span><span class="q">15 g</span></li>
-                <li><span class="n">Yuzu-Saft</span><span class="d"></span><span class="q">15 ml</span></li>
               </ul>
             </div>
             <div>
               <span class="label">Zubereitung</span>
               <ol class="steps">
-                <li>Avocado in Spalten, Gurke in feine Scheiben schneiden.</li>
+                <li>Avocado in Spalten schneiden.</li>
                 <li>Dressing glatt rühren, bei Bedarf mit etwas Wasser auf Konsistenz bringen.</li>
                 <li>Salat erst kurz vor dem Servieren anmachen, Avocado vorsichtig unterheben.</li>
               </ol>
@@ -1192,6 +1231,7 @@
     <div class="course-head" data-reveal>
       <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
       <span class="cno">Gang 07</span>
+      <span class="diet vegan">Vegan</span>
     </div>
     <h2 data-reveal>Yuzu Ponzu</h2>
     <div class="csub" data-reveal>Dip zu Yakitori &amp; Grillgemüse</div>
@@ -1275,6 +1315,7 @@
     <div class="course-head" data-reveal>
       <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
       <span class="cno">Gang 08</span>
+      <span class="diet vegan">Vegan</span>
     </div>
     <h2 data-reveal>Dessert</h2>
     <div class="csub" data-reveal>Kokos-Yuzu-Eis · Zitrone · schwarzer Sesam</div>
