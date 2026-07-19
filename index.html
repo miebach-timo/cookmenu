@@ -262,7 +262,7 @@
 
   /* ---------- Aurora (CSS-Port des Aceternity-Effekts, warme Palette) ---------- */
   .hero{overflow:clip}
-  .hero > *:not(.aurora){position:relative;z-index:1}
+  .hero > *:where(:not(.aurora)){position:relative;z-index:1}
   :root{--ar1:#2a2a2a;--ar2:#555;--ar3:#888;--ar4:#bcbcbc}
   :root[data-theme="dark"]{--ar1:#f2f2f2;--ar2:#c4c4c4;--ar3:#8f8f8f;--ar4:#e8e8e8}
   .hero .aurora{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
