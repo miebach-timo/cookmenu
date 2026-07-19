@@ -226,17 +226,27 @@
   .hero .enso-wrap{position:relative;width:min(300px,82vw);aspect-ratio:1}
   @media(min-width:641px){.hero .enso-wrap{width:min(430px,78vw)}}
   .hero .enso{position:absolute;inset:0;width:100%;height:100%}
-  /* durchsichtiger, glassy Ring (frosted glass à la Apple) */
-  .hero .enso path{fill:none;stroke:rgba(40,54,84,.26);stroke-width:3.6;stroke-linecap:round;
+  /* Liquid Glass: refraktive Glas-Ebene (backdrop-filter) in Enso-Form + Linie als Rand */
+  .hero .enso path{fill:none;stroke:rgba(255,255,255,.32);stroke-width:2.4;stroke-linecap:round;
     filter:
-      drop-shadow(-1px -1px 1px rgba(255,255,255,.65))
-      drop-shadow(1px 1.5px 2px rgba(30,40,60,.18))
-      drop-shadow(0 0 7px rgba(255,255,255,.45))}
-  :root[data-theme="dark"] .hero .enso path{stroke:rgba(232,238,248,.24);
+      drop-shadow(-.7px -.7px .6px rgba(255,255,255,.75))
+      drop-shadow(.7px 1px 1.4px rgba(20,28,45,.28))}
+  :root[data-theme="dark"] .hero .enso path{stroke:rgba(255,255,255,.40);
     filter:
-      drop-shadow(-1px -1px 1px rgba(255,255,255,.35))
-      drop-shadow(1px 1.5px 3px rgba(0,0,0,.45))
-      drop-shadow(0 0 9px rgba(190,212,255,.30))}
+      drop-shadow(-.7px -.7px .6px rgba(255,255,255,.45))
+      drop-shadow(.7px 1px 1.6px rgba(0,0,0,.55))}
+  .hero .enso-glass{position:absolute;inset:0;pointer-events:none;border-radius:50%;
+    background:rgba(255,255,255,.05);
+    -webkit-backdrop-filter:blur(5px) saturate(1.5) brightness(1.05);
+    backdrop-filter:blur(5px) saturate(1.5) brightness(1.05);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Cpath%20d='M50%208%20C%2026%208,%208%2027,%208%2050%20C%208%2073,%2027%2092,%2050%2092%20C%2071%2092,%2090%2075,%2091%2054'%20fill='none'%20stroke='%23000'%20stroke-width='7'%20stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Cpath%20d='M50%208%20C%2026%208,%208%2027,%208%2050%20C%208%2073,%2027%2092,%2050%2092%20C%2071%2092,%2090%2075,%2091%2054'%20fill='none'%20stroke='%23000'%20stroke-width='7'%20stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    opacity:0;animation:ensoGlassIn .9s ease 2s forwards}
+  :root[data-theme="dark"] .hero .enso-glass{background:rgba(255,255,255,.07);
+    -webkit-backdrop-filter:blur(5px) saturate(1.4) brightness(1.18);
+    backdrop-filter:blur(5px) saturate(1.4) brightness(1.18)}
+  @keyframes ensoGlassIn{to{opacity:1}}
+  @media(prefers-reduced-motion:reduce){.hero .enso-glass{animation:none;opacity:1}}
   .hero .kanji{
     position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     font-family:var(--serif);font-size:clamp(44px,10vw,72px);letter-spacing:.1em;
@@ -539,6 +549,7 @@
 <section class="hero" id="hero">
   <div class="aurora" aria-hidden="true"></div>
   <div class="enso-wrap">
+    <div class="enso-glass" aria-hidden="true"></div>
     <svg class="enso" id="heroEnso" viewBox="0 0 100 100" aria-hidden="true">
       <path id="heroEnsoPath" d="M50 8
                C 26 8, 8 27, 8 50
