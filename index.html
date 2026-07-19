@@ -582,8 +582,6 @@
     <div class="dish-intro">
       <div class="dish-intro-text">
         <div class="course-head" data-reveal>
-          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-          <span class="cno">Gang 01</span>
           <span class="diet vegan">Vegan</span>
         </div>
         <h2 data-reveal>Amuse</h2>
@@ -732,8 +730,6 @@
     <div class="dish-intro">
       <div class="dish-intro-text">
         <div class="course-head" data-reveal>
-          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-          <span class="cno">Gang 02</span>
           <span class="diet vegan">Vegan</span>
           <span class="diet meat">Fleisch</span>
         </div>
@@ -871,8 +867,6 @@
     <div class="dish-intro">
       <div class="dish-intro-text">
         <div class="course-head" data-reveal>
-          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-          <span class="cno">Gang 03</span>
           <span class="diet vegan">Vegan</span>
         </div>
         <h2 data-reveal>Nasu Dengaku</h2>
@@ -967,8 +961,6 @@
     <div class="dish-intro">
       <div class="dish-intro-text">
         <div class="course-head" data-reveal>
-          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-          <span class="cno">Gang 04</span>
           <span class="diet vegan">Vegan</span>
         </div>
         <h2 data-reveal>Mariniertes Grillgemüse</h2>
@@ -1065,8 +1057,6 @@
     <div class="dish-intro">
       <div class="dish-intro-text">
         <div class="course-head" data-reveal>
-          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-          <span class="cno">Gang 05</span>
           <span class="diet veg">Vegetarisch</span>
         </div>
         <h2 data-reveal>Aburi Tomato Nigiri</h2>
@@ -1193,8 +1183,6 @@
     <div class="dish-intro">
       <div class="dish-intro-text">
         <div class="course-head" data-reveal>
-          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-          <span class="cno">Gang 06</span>
           <span class="diet vegan">Vegan</span>
         </div>
         <h2 data-reveal>Avocado Salat</h2>
@@ -1290,8 +1278,6 @@
     <div class="dish-intro">
       <div class="dish-intro-text">
         <div class="course-head" data-reveal>
-          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-          <span class="cno">Gang 07</span>
           <span class="diet vegan">Vegan</span>
         </div>
         <h2 data-reveal>Yuzu Ponzu</h2>
@@ -1382,8 +1368,6 @@
     <div class="dish-intro">
       <div class="dish-intro-text">
         <div class="course-head" data-reveal>
-          <svg class="mark" viewBox="0 0 100 100"><path d="M50 8C26 8 8 27 8 50s19 42 42 42 41-17 42-38"/></svg>
-          <span class="cno">Gang 08</span>
           <span class="diet vegan">Vegan</span>
         </div>
         <h2 data-reveal>Dessert</h2>
@@ -1752,15 +1736,6 @@
     gsap.from(list.querySelectorAll("li"), {
       opacity: 0, x: 14, stagger: .09, duration: .6, ease: "power2.out",
       scrollTrigger: {trigger: list, start: "top 88%"}
-    });
-  });
-
-  /* small ensō marks draw themselves in */
-  gsap.utils.toArray(".course-head .mark path").forEach(function(p){
-    prepDraw(p);
-    gsap.to(p, {
-      strokeDashoffset: 0, duration: 1.3, ease: "power2.inOut",
-      scrollTrigger: {trigger: p, start: "top 88%"}
     });
   });
 
