@@ -258,6 +258,29 @@
   .hero .rule{width:54px;height:1px;background:var(--indigo);margin:28px auto;transform-origin:center}
   .hero .serve{font-family:var(--sans);font-size:11px;letter-spacing:.3em;
     text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- Aurora (CSS-Port des Aceternity-Effekts, warme Palette) ---------- */
+  .hero{overflow:clip}
+  .hero > *:not(.aurora){position:relative;z-index:1}
+  :root{--ar1:#223A5E;--ar2:#C2941F;--ar3:#5E6B4A;--ar4:#7C6F9E}
+  :root[data-theme="dark"]{--ar1:#9DB6D6;--ar2:#C9A94A;--ar3:#6E8E6A;--ar4:#9E90C4}
+  .hero .aurora{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+    -webkit-mask-image:radial-gradient(ellipse at 100% 0%,#000 10%,transparent 70%);
+    mask-image:radial-gradient(ellipse at 100% 0%,#000 10%,transparent 70%)}
+  .hero .aurora::before,.hero .aurora::after{
+    content:"";position:absolute;inset:-10px;will-change:transform,background-position;
+    --aurora:repeating-linear-gradient(100deg,var(--ar1) 10%,var(--ar2) 15%,var(--ar3) 20%,var(--ar4) 25%,var(--ar1) 30%);
+    --stripe:repeating-linear-gradient(100deg,var(--paper) 0%,var(--paper) 7%,transparent 10%,transparent 12%,var(--paper) 16%);
+    background-image:var(--stripe),var(--aurora);
+    background-size:300% 200%;background-position:50% 50%,50% 50%;
+    filter:blur(12px);opacity:.35}
+  .hero .aurora::after{background-size:200% 100%;mix-blend-mode:multiply;
+    animation:aurora 60s linear infinite}
+  :root[data-theme="dark"] .hero .aurora::after{mix-blend-mode:screen}
+  :root[data-theme="dark"] .hero .aurora::before,
+  :root[data-theme="dark"] .hero .aurora::after{opacity:.28}
+  @keyframes aurora{from{background-position:50% 50%,50% 50%}to{background-position:350% 50%,350% 50%}}
+  @media(prefers-reduced-motion:reduce){.hero .aurora::after{animation:none}}
   .scroll-cue{
     position:absolute;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
     display:flex;flex-direction:column;align-items:center;gap:8px;
@@ -504,6 +527,7 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="hero">
+  <div class="aurora" aria-hidden="true"></div>
   <div class="enso-wrap">
     <svg class="enso" id="heroEnso" viewBox="0 0 100 100" aria-hidden="true">
       <path id="heroEnsoPath" d="M50 8
