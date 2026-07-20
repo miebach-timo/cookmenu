@@ -22,9 +22,12 @@ gehostet über GitHub Pages.
 Rezepte auf **8 Personen** skaliert; Nährwerte je Portion = 1/8 des Rezepts (Näherungswerte).
 
 ## Fertig ✅
-- **Hero mit Landschaftsbild** (`assets/hero-bg.png`) als Hintergrund; **Aurora-Overlay**
-  (CSS-Port des Aceternity-Effekts) darüber. Beim Runterscrollen fadet das Bild nach oben
+- **Hero mit Video-Hintergrund** (`assets/hero.mp4`): nahtloser Loop (End-zu-Anfang-Crossfade
+  in ffmpeg, 1080p, tonlos, ~4 MB) im `.hero-bg`-Container; **Aurora-Overlay**
+  (CSS-Port des Aceternity-Effekts) darüber. Beim Runterscrollen fadet der Hintergrund nach oben
   aus und beim Hochscrollen wieder ein (GSAP ScrollTrigger, scrub).
+  `assets/hero-bg.png` bleibt als Fallback (CSS-`background` + `poster`) für No-JS und
+  `prefers-reduced-motion` (da wird das `<video>` ausgeblendet).
 - **Hero-Titel**: großes Kanji 口寂しい (Ensō-Ring entfernt). Intro-Reihenfolge
   **Kanji (Fade) → „KUCHISABISHII" (Zeichen-Stagger) → „JAPANESE DINNER" (Fade)**,
   danach Loop Wort ↔ englische Definition („Lonely mouth — for the sake of eating.").
@@ -45,7 +48,6 @@ Rezepte auf **8 Personen** skaliert; Nährwerte je Portion = 1/8 des Rezepts (N�
 
 ## Verworfen ✗
 - Ensō-Ring im Hero (Draw-Animation, dann glassy/RGB-Split/Liquid-Glass-Varianten) — komplett entfernt.
-- Video-Hintergrund (`hero.mp4`) — getestet, funktionierte, aber wieder zum Bild zurück.
 - Frame-Scrub-Anrichte-Animation & 3D-Modell (`.glb`) — früher verworfen.
 
 ## Nächste Schritte
@@ -58,7 +60,8 @@ Rezepte auf **8 Personen** skaliert; Nährwerte je Portion = 1/8 des Rezepts (N�
 index.html            komplette Seite (Markup, CSS, JS/GSAP inline)
 assets/js/            GSAP 3.13 lokal (core, ScrollTrigger, ScrollToPlugin)
 assets/icons/         Favicon-/App-Icon-PNGs (aus Kanji 口)
-assets/hero-bg.png    Hero-Hintergrundbild
+assets/hero.mp4       Hero-Video (nahtloser Loop, 1080p, tonlos)
+assets/hero-bg.png    Hero-Standbild (Fallback + Video-Poster)
 assets/*.png          Gericht-Fotos: amuse, nasu, yakitori, grillgemuese,
                       nigiri, avocado, ponzu, eis
 assets/qr-cookmenu.*  QR-Code (PNG + SVG) zur Live-URL
