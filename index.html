@@ -269,7 +269,7 @@
   .hero{overflow:clip}
   .hero > *:where(:not(.aurora)){position:relative;z-index:1}
   /* warme Aurora, in beiden Modi identisch (Light als Default) */
-  :root,:root[data-theme="dark"]{--ar1:#3a2c1e;--ar2:#7a5632;--ar3:#c2941f;--ar4:#e8cf9c;--ar-paper:#F5F2EA}
+  :root,:root[data-theme="dark"]{--ar1:#d8c8ac;--ar2:#e6d4b2;--ar3:#eeddb8;--ar4:#f2ead6;--ar-paper:#F5F2EA}
   .hero .aurora{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
     -webkit-mask-image:radial-gradient(ellipse at 100% 0%,#000 10%,transparent 70%);
     mask-image:radial-gradient(ellipse at 100% 0%,#000 10%,transparent 70%)}
@@ -279,7 +279,7 @@
     --stripe:repeating-linear-gradient(100deg,var(--ar-paper) 0%,var(--ar-paper) 7%,transparent 10%,transparent 12%,var(--ar-paper) 16%);
     background-image:var(--stripe),var(--aurora);
     background-size:300% 200%;background-position:50% 50%,50% 50%;
-    filter:blur(12px);opacity:.35}
+    filter:blur(12px);opacity:.16}
   .hero .aurora::after{background-size:200% 100%;mix-blend-mode:multiply;
     animation:aurora 60s linear infinite}
   @keyframes aurora{from{background-position:50% 50%,50% 50%}to{background-position:350% 50%,350% 50%}}
