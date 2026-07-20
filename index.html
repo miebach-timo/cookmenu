@@ -268,23 +268,20 @@
   /* ---------- Aurora (CSS-Port des Aceternity-Effekts, warme Palette) ---------- */
   .hero{overflow:clip}
   .hero > *:where(:not(.aurora)){position:relative;z-index:1}
-  :root{--ar1:#2a2a2a;--ar2:#555;--ar3:#888;--ar4:#bcbcbc}
-  :root[data-theme="dark"]{--ar1:#f2f2f2;--ar2:#c4c4c4;--ar3:#8f8f8f;--ar4:#e8e8e8}
+  /* warme Aurora, in beiden Modi identisch (Light als Default) */
+  :root,:root[data-theme="dark"]{--ar1:#3a2c1e;--ar2:#7a5632;--ar3:#c2941f;--ar4:#e8cf9c;--ar-paper:#F5F2EA}
   .hero .aurora{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
     -webkit-mask-image:radial-gradient(ellipse at 100% 0%,#000 10%,transparent 70%);
     mask-image:radial-gradient(ellipse at 100% 0%,#000 10%,transparent 70%)}
   .hero .aurora::before,.hero .aurora::after{
     content:"";position:absolute;inset:-10px;will-change:transform,background-position;
     --aurora:repeating-linear-gradient(100deg,var(--ar1) 10%,var(--ar2) 15%,var(--ar3) 20%,var(--ar4) 25%,var(--ar1) 30%);
-    --stripe:repeating-linear-gradient(100deg,var(--paper) 0%,var(--paper) 7%,transparent 10%,transparent 12%,var(--paper) 16%);
+    --stripe:repeating-linear-gradient(100deg,var(--ar-paper) 0%,var(--ar-paper) 7%,transparent 10%,transparent 12%,var(--ar-paper) 16%);
     background-image:var(--stripe),var(--aurora);
     background-size:300% 200%;background-position:50% 50%,50% 50%;
     filter:blur(12px);opacity:.35}
   .hero .aurora::after{background-size:200% 100%;mix-blend-mode:multiply;
     animation:aurora 60s linear infinite}
-  :root[data-theme="dark"] .hero .aurora::after{mix-blend-mode:screen}
-  :root[data-theme="dark"] .hero .aurora::before,
-  :root[data-theme="dark"] .hero .aurora::after{opacity:.28}
   @keyframes aurora{from{background-position:50% 50%,50% 50%}to{background-position:350% 50%,350% 50%}}
   @media(prefers-reduced-motion:reduce){.hero .aurora::after{animation:none}}
   .scroll-cue{
