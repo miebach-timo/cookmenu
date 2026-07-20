@@ -44,6 +44,9 @@ Rezepte auf **8 Personen** skaliert; Nährwerte je Portion = 1/8 des Rezepts (N�
 - Dark Mode mit Toggle (folgt System, merkt Wahl in localStorage, kein Flackern).
 - **Farbschema nur Schwarz/Weiß (+ Gold-Akzent).** Blau (`--indigo`) komplett entfernt/neutralisiert;
   Aurora in Graustufen.
+- **Aurora-Overlay modus-unabhängig**: in Light *und* Dark identisch (heller Look als Default),
+  neutrale Graustufen (`--ar1`–`--ar4`), Opacity `.35`, `multiply`-Blend. Streifen nutzt festes
+  Washi (`--ar-paper`), damit im Dark Mode nichts umschlägt. (Warme Farben getestet, wieder verworfen.)
 - Favicon + App-Icons aus dem Kanji 口 (Vektorpfad, schriftunabhängig).
 
 ## Verworfen ✗
